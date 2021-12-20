@@ -1,0 +1,15 @@
+@use "../abstracts/variables";
+
+html {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px; // fix the size font for the website
+}
+
+//special police for title
+h1 {
+    color: variables.$clr-base;
+}
+
+label {
+    color: variables.$clr-medium;
+}

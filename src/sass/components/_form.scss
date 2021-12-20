@@ -1,0 +1,15 @@
+@use "../abstracts/variables";
+
+.user_form {
+    font-size: 16px;
+    padding: 2em;
+    label {
+        display: block;
+        margin-top: 2em;
+    }
+    input {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid variables.$clr-medium;
+    }
+}

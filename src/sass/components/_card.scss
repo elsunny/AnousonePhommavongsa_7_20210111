@@ -1,0 +1,33 @@
+@use "../abstracts/mixins";
+@use "../abstracts/variables";
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.title {
+    padding: 2em 2em 1em 2em;
+    h1 {
+        margin-bottom: 10px;
+    }
+    span {
+        color: variables.$clr-medium;
+    }
+}
+
+.card_background {
+    @include mixins.card_shape;
+    overflow: hidden;
+    &_logo {
+        height: 150px;
+        overflow: hidden;
+    }
+    img {
+        object-fit: cover;
+        object-position: -10px -120px;
+    } 
+}
