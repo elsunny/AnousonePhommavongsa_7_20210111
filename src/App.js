@@ -1,13 +1,20 @@
 import React from "react";
-import Card from "./components/card/Card";
+import Signup from "./pages/signup/Signup";
+import Login from "./pages/login/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import "./sass/app.scss";
 
 const App = () => {
     return (
-        <div className="container">
-            <Card />
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="signup" element={<Signup />} />
+                <Route path="login" element={<Login />} />
+            </Routes>
+        </BrowserRouter>
     );
+
 };
 
 export default App;
