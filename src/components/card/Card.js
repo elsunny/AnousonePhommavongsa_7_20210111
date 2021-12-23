@@ -4,18 +4,16 @@ import logo from "../../assets/images/icon-left-font.svg";
 
 
 
-export default class Card extends React.Component {
-    render() {
+const Card = (props) => {
 
         return (
             <div className="card_background">
                 <div className="card_background_logo">
                     <img src={logo} alt="#" />
                 </div>
-                { this.props.children }
+                { props.children }
             </div>
         );
-    }
 };
 
-
+export default Card;

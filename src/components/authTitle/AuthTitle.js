@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
-export default class AuthTitle extends React.Component {
-    render() {
-        return (
-            <div className="title">
-                    <h1>{this.props.children}</h1>
-                    <span>Enter your credentials to continue</span>
-                </div>
-        )
-        
 
-    }
-}
+const AuthTitle = (props) => {
+    return (
+        <div className="title">
+            <h1>{props.children}</h1>
+            <span>Enter your credentials to continue</span>
+        </div>
+    );
+};
+
+export default AuthTitle;

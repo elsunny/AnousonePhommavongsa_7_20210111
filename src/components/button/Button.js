@@ -1,16 +1,14 @@
 import React from 'react';
 import "./Button.scss";
 
-export default class Button extends React.Component {
-    render() {
-        return (
-            <div className="form_button">
-                <span>{this.props.children}</span>
-            </div>
-        )
-        
 
-    }
+const Button = (props) => {
+    return (
+        <div className="form_button">
+                <span>{props.children}</span>
+            </div>
+    )
 }
 
+export default Button;
 
