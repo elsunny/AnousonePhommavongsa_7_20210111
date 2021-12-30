@@ -2,15 +2,15 @@
 
 .form_button {
     font-size: 16px;
+    width: 250px;
+    display: block;
+    margin: 0 auto;
     color: variables.$clr-accent;
     border: solid 1px variables.$clr-accent;
     padding: 1em 2em 1em 2em;
-    margin: 0 4em;
-    margin-bottom: 1em;
     text-align: center;
     border-radius: 16px;
     cursor: pointer;
-
     transition: all 0.5s ease;
     background-color: transparent;
     outline: none;

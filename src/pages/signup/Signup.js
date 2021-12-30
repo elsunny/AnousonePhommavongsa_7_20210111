@@ -11,7 +11,7 @@ const Signup = () => {
         <MainContainer>
             <Card>
                 <AuthTitle>Sign Up</AuthTitle>
-                <Form />
+                <Form  onWhichPage='pseudoDisplayed'/>
                 <Button>Sign Up </Button>
                 <div className="toggle_button">
                     <span>Already have an account?</span>
