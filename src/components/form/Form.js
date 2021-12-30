@@ -3,10 +3,6 @@ import { useForm } from "react-hook-form";
 import "./Form.scss";
 
 function Form(props) {
-
-
-    console.log(props.onWhichPage);
-
     const {
         register,
         handleSubmit,
@@ -16,28 +12,29 @@ function Form(props) {
     return (
         <form
             onSubmit={handleSubmit((data) => {
-                console.log(data);
-                props.onSubmit(data);
+                props.sending(data);
             })}
             id="user_form"
             method="post"
         >
-            <div className={ props.onWhichPage}>
-                <label htmlFor="pseudo">Pseudo</label>
-                <input
-                    {...register("pseudo", {
-                        required: "Merci de compléter ce champ svp",
-                        minLength: {
-                            value: 4,
-                            message: "longueur minimal de 4 caractères",
-                        },
-                    })}
-                    type="text"
-                    id="pseudo"
-                    name="pseudo"
-                />
-                <p>{errors.pseudo?.message}</p>
-            </div>
+            {props.displayPseudo && 
+                <div>
+                    <label htmlFor="pseudo">Pseudo</label>
+                    <input
+                        {...register("pseudo", {
+                            required: "Merci de compléter ce champ svp",
+                            minLength: {
+                                value: 4,
+                                message: "longueur minimal de 4 caractères",
+                            },
+                        })}
+                        type="text"
+                        id="pseudo"
+                        name="pseudo"
+                    />
+                    <p>{errors.pseudo?.message}</p>
+                </div>
+            }
             <div>
                 <label htmlFor="email">Email</label>
                 <input

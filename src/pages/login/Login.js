@@ -9,17 +9,25 @@ import axios from "axios";
 
 export default class Login extends React.Component {
     manageSubmit(data) {
-        axios
-            .post("http://localhost:4000/api/user/signup", data)
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
+        console.log(data);
+        axios({
+            method: 'post',
+            url: 'http://localhost:4000/api/user/login',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            data
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
     }
     render() {
         return (
             <MainContainer>
                 <Card>
                     <AuthTitle>Login</AuthTitle>
-                    <Form onSubmit={this.manageSubmit} onWhichPage='pseudoNotDisplayed'/>
+                    <Form sending={this.manageSubmit} displayPseudo={false}/>
                     <Button>Login </Button>
                     <div className="toggle_button">
                         <span>Already have an account?</span>

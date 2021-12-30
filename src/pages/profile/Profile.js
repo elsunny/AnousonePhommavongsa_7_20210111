@@ -1,11 +1,14 @@
-import React from 'react'
-// import myEditor from 'components/avatar/Avatar'
+import React, { Fragment } from "react";
 
-export default function Profile() {
+export default function profile() {
     return (
-        <div>
-            {/* <AvatarEditor /> */}
-            avatar page
-        </div>
-    )
+        <Fragment>
+            <div>
+                <ProfileAvatar />
+            </div>
+            <div>
+                {/* <h4>Name</h4> */}
+            </div>
+        </Fragment>
+    );
 }
