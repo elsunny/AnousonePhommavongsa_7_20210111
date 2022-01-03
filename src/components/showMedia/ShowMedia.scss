@@ -1,0 +1,12 @@
+@use "../../sass/abstracts/variables";
+@use "../../sass/abstracts/mixins";
+
+
+.showMedia {
+    @include mixins.card_shape;
+    width: 600px;
+    background-color: variables.$clr-mediumLight;
+    &_header {
+        display: flex;
+    }
+}

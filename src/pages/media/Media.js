@@ -1,9 +1,21 @@
-import React from 'react'
+import React from "react";
+import MainContainer from "components/mainContainer/MainContainer";
+import Header from "components/header/Header";
+import ErrorBoundary from "components/error/ErrorBoundary";
+import Post from "components/post/Post";
+import ShowMedia from "components/showMedia/ShowMedia";
+import "./Media.scss";
 
 export default function Media() {
     return (
-        <div>
-            Media page
+        <div className="pageContainer">
+            <Header />
+            <MainContainer>
+                <ErrorBoundary>
+                    <Post />
+                </ErrorBoundary>
+                <ShowMedia />
+            </MainContainer>
         </div>
-    )
+    );
 }

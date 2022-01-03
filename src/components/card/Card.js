@@ -1,7 +1,6 @@
 import React from "react";
 import "./Card.scss";
-import logo from "../../assets/images/icon-left-font.svg";
-
+import Logo from "components/logo/Logo";
 
 
 const Card = (props) => {
@@ -9,7 +8,7 @@ const Card = (props) => {
         return (
             <div className="card_background">
                 <div className="card_background_logo">
-                    <img src={logo} alt="#" />
+                    <Logo />
                 </div>
                 { props.children }
             </div>

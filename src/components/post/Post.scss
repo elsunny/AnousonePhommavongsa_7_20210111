@@ -1,0 +1,43 @@
+@use "../../sass/abstracts/variables";
+@use "../../sass/abstracts/mixins";
+
+
+.postCard {
+    @include mixins.card_shape;
+    width: 600px;
+    background-color: variables.$clr-mediumLight;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 50px auto 5px;
+    grid-template-areas: 
+    "avatar form"
+    " . control";
+    &_avatar {
+        grid-area: avatar;
+    }
+    &_form {
+        grid-area: form;
+        input {
+            width: 100%;
+            border: 0;
+            line-height: 25px;
+            padding: 5px 10px;
+            
+           
+        }
+        div {
+            margin-bottom: 10px;
+        }
+    }
+    &_control {
+        grid-area: control;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        &_add, &_publier {
+            background-color: variables.$clr-mediumLight;
+            cursor: pointer;
+        }
+    }
+
+}

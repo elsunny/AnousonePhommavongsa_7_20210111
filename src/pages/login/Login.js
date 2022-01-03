@@ -16,10 +16,10 @@ const Login = () => {
         axios({
             method: 'post',
             url: 'http://localhost:4000/api/user/login',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
+            // headers: {
+            //     Accept: "application/json",
+            //     "Content-Type": "application/json",
+            // },
             data
         })
         .then((res) => {
