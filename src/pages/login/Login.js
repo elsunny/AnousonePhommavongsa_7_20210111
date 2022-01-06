@@ -13,15 +13,7 @@ const Login = () => {
     
 
     const manageSubmit = (data) => {
-        axios({
-            method: 'post',
-            url: 'http://localhost:4000/api/user/login',
-            // headers: {
-            //     Accept: "application/json",
-            //     "Content-Type": "application/json",
-            // },
-            data
-        })
+        axios.post('http://localhost:4000/api/user/login', data)
         .then((res) => {
             navigate('/media');
         })

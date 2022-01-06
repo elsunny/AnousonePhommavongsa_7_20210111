@@ -12,15 +12,7 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const manageSubmit = (data) => {
-        axios({
-            method: "post",
-            url: "http://localhost:4000/api/user/signup",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            data,
-        })
+        axios.post("http://localhost:4000/api/user/signup", data)
             .then((res) => {
                 navigate('/media');
             })
