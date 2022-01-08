@@ -11,10 +11,10 @@ export default function Media() {
         <div className="pageContainer">
             <Header />
             <MainContainer>
+                <Post />
                 <ErrorBoundary>
-                    <Post />
+                    <ShowMedia />
                 </ErrorBoundary>
-                <ShowMedia />
             </MainContainer>
         </div>
     );
