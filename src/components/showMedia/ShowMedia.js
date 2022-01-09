@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
+import { Pseudo } from "components/pseudo/Pseudo";
 import "./ShowMedia.scss";
 
 const baseUrl = "http://localhost:4000/api/media";
@@ -18,10 +19,10 @@ export default function ShowMedia() {
 
     const getMediaToDisplay = media.map(item => {
         return (
-            <div className="showMedia">
+            <div className="showMedia" key={"media" + item.id}>
                 <div className="showMedia_header">
                     <Avatar />
-                    <div>Pseudo</div>
+                    <Pseudo userNumber={item.UserId}/>
                 </div>
                 <div className="showMedia_title">
                     <h3>{item.title}</h3>

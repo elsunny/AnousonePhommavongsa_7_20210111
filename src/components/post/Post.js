@@ -33,13 +33,10 @@ export default function Post() {
 
                     const url="http://localhost:4000/api/media/";
 
-                    console.log("data", data);
-                    console.log("register", data.filename[0].name);
 
                     axios
                         .post(url, formData)
                         .then((res) => {
-                            console.log('parti formData', formData);
                         })
                         .catch((err) => console.error(err));
                 })}
