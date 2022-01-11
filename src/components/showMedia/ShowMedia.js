@@ -40,7 +40,7 @@ export default function ShowMedia() {
                     <Comment mediaNumber={item.id} />
                 </div>
                 <div>
-                    {/* <CommentsByMedia mediaNumber={item.id} /> */}
+                    <CommentsByMedia mediaNumber={item.id} />
                 </div>
             </div>
         );
