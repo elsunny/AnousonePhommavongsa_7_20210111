@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
 
@@ -7,15 +7,19 @@ export const CommentsByMedia = (props) => {
     const mediaId = props.mediaNumber;
     const url = "http://localhost:4000/api/comment/" + mediaId;
 
+  useEffect(() => {
     axios.get(url).then((res) => {
-        setComments(res);
-        console.log("comments", comments);
+        setComments(res.data);
     });
+  }, [])
+        
 
-    const displayMediaComments = comments.map((comment) => { //map ne marche pas pour les objets
+    if (!comments) return null;
+    
+    const displayMediaComments = comments.map((comment) => { 
         if (comment != null) {
             let foundComment = (
-                <div>
+                <div key={"comment" + comment.id}>
                     <p>{comment.message}</p>
                 </div>
             );
@@ -26,7 +30,7 @@ export const CommentsByMedia = (props) => {
     return (
         <div>
             <Avatar />
-            <div>{displayMediaComments()}</div>
+            <div>{displayMediaComments}</div>
         </div>
     );
 };
