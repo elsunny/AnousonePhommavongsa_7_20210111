@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
 import { Pseudo } from "components/pseudo/Pseudo";
+import { Comment } from "components/comment/Comment";
+import { CommentsByMedia } from "components/comment/CommentsByMedia";
 import "./ShowMedia.scss";
 
 const baseUrl = "http://localhost:4000/api/media";
@@ -34,6 +36,12 @@ export default function ShowMedia() {
                     />
                 </div>
                 <div>{item.description}</div>
+                <div>
+                    <Comment mediaNumber={item.id} />
+                </div>
+                <div>
+                    {/* <CommentsByMedia mediaNumber={item.id} /> */}
+                </div>
             </div>
         );
     });
