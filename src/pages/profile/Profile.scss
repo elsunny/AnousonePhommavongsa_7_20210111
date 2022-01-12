@@ -1,0 +1,19 @@
+@use "../../sass/abstracts/mixins";
+@use "../../sass/abstracts/variables";
+
+.profileContainer {
+    @include mixins.card_shape;
+    width: 100%;
+    margin: 10px 0;
+    .MainContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.profileCard {
+    @include mixins.card_shape;
+    width: 600px;
+    background-color: variables.$clr-mediumLight;
+}

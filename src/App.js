@@ -4,6 +4,7 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Media from "./pages/media/Media";
 import Profile from "./pages/profile/Profile";
+import { Deconnexion } from "pages/deconnexion/Deconnexion";
 import ErrorPage from "pages/error/ErrorPage";
 
 import "./sass/app.scss";
@@ -17,6 +18,7 @@ const App = () => {
                 <Route path="login" element={<Login />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="media" element={<Media />} />
+                <Route path="deconnexion" element={<Deconnexion />} />
                 <Route path="*" element={<ErrorPage />} />
 
                 
