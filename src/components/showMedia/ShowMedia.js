@@ -5,6 +5,7 @@ import { Pseudo } from "components/pseudo/Pseudo";
 import { Comment } from "components/comment/Comment";
 import { CommentsByMedia } from "components/comment/CommentsByMedia";
 import "./ShowMedia.scss";
+import MediaAddEvent from "events/MediaAdd";
 
 const baseUrl = "http://localhost:4000/api/media";
 
@@ -16,6 +17,17 @@ export default function ShowMedia() {
             setMedia(res.data);
         });
     }, []);
+
+    useEffect(() => {
+        const callback = (event)=>{
+            setMedia([event.detail, ...media]);
+            console.log('callback', event);
+        };
+        document.addEventListener(MediaAddEvent.event, callback )
+        return ()=>{
+            document.removeEventListener(MediaAddEvent.event, callback);
+        }
+    })
 
     if (!media) return null;
 

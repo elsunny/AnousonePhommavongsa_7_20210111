@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
 import "./Post.scss";
+import MediaAddEvent from "events/MediaAdd";
 
 export default function Post() {
     const {
@@ -11,7 +12,25 @@ export default function Post() {
         formState: { errors },
     } = useForm();
 
-    
+    const onSubmit = (data) => {
+
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('description', data.description);
+        formData.append('file', data.filename[0]);
+
+
+        const url="http://localhost:4000/api/media/";
+
+
+        axios
+            .post(url, formData)
+            .then((res) => {
+                document.dispatchEvent(new MediaAddEvent(res.data));
+                console.log('dispatch', res.data);
+            })
+            .catch((err) => console.error(err));
+    }
 
     return (
         <div className="postCard">
@@ -23,23 +42,7 @@ export default function Post() {
                 id="postForm"
                 name="postForm"
                 encType="multipart/form-data"
-                onSubmit={handleSubmit((data) => {
-
-                    const formData = new FormData();
-                    formData.append('title', data.title);
-                    formData.append('description', data.description);
-                    formData.append('file', data.filename[0]);
-
-
-                    const url="http://localhost:4000/api/media/";
-
-
-                    axios
-                        .post(url, formData)
-                        .then((res) => {
-                        })
-                        .catch((err) => console.error(err));
-                })}
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <div>
                     <input {...register("title")} name='title' placeholder="Titre" />
