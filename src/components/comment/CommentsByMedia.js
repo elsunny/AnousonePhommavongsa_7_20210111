@@ -10,7 +10,7 @@ export const CommentsByMedia = (props) => {
     const mediaId = props.mediaNumber;
     const url = "http://localhost:4000/api/comment/" + mediaId;
     
-
+    // affiche tout les commentaires liées à un média
     useEffect(() => {
         axios.get(url).then(
             (res) => {
@@ -22,7 +22,7 @@ export const CommentsByMedia = (props) => {
     }, [url]);
 
 
-    // pb car supprime tous les commentaires <<<<<<<<<< A revoir
+    // supprime les commentaires
     const removeComment = (item) => {
         const commentUrl = "http://localhost:4000/api/comment/" + item;
             axios.delete(commentUrl, item)

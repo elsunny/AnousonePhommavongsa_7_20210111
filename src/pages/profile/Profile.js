@@ -11,7 +11,6 @@ export default function Profile() {
     const {
         register,
         handleSubmit,
-        formState: { errors }
     } = useForm();
 
     const { id } = useParams();
@@ -37,7 +36,7 @@ export default function Profile() {
         formData.append("id", id);
         formData.append("file", data.image[0]);
 
-        const url = "http://localhost:4000/api/user/profile/8";
+        const url = "http://localhost:4000/api/user/profile/" + id;
 
         axios
             .put(url, formData)

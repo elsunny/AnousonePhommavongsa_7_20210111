@@ -1,25 +1,49 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
-import { Pseudo } from "components/pseudo/Pseudo";
 import { Comment } from "components/comment/Comment";
 import { CommentsByMedia } from "components/comment/CommentsByMedia";
 import "./ShowMedia.scss";
 import MediaAddEvent from "events/MediaAdd";
 
 export default function ShowMedia() {
-    const [media, setMedia] = useState(null);
-    const baseUrl = "http://localhost:4000/api/media";
+    const [medias, setMedias] = useState(null);
 
+    // display all medias
     useEffect(() => {
+        const baseUrl = "http://localhost:4000/api/media";
         axios.get(baseUrl).then((res) => {
-            setMedia(res.data);
+            const medias = res.data;
+            const usersPromise = medias
+                .reduce((userIds, media) => {
+                    if (!userIds.includes(media.UserId))
+                        userIds.push(media.UserId);
+                    return userIds;
+                }, [])
+                .map((userId) => {
+                    const url = "http://localhost:4000/api/user/" + userId;
+                    return axios.get(url).then((res) => res.data);
+                });
+            Promise.all(usersPromise).then((users) => {
+                console.log("users", users);
+                setMedias(
+                    medias.map((media) => {
+                        return {
+                            ...media,
+                            user: users.find((user) => {
+                                return user.id === media.UserId;
+                            }),
+                        };
+                    })
+                );
+            });
         });
     }, []);
 
+    // refresh page when a new media is added
     useEffect(() => {
         const callback = (event) => {
-            setMedia([event.detail, ...media]);
+            setMedias([event.detail, ...medias]);
             console.log("callback", event);
         };
         document.addEventListener(MediaAddEvent.event, callback);
@@ -28,38 +52,45 @@ export default function ShowMedia() {
         };
     });
 
-    const removeMedia = (item) => {
-        const mediaUrl = "http://localhost:4000/api/media/" + item;
-            axios.delete(mediaUrl, item)
-                .then(res => console.log(res))
-    }
+    // remove the media
+    const removeMedia = (mediaId) => {
+        const mediaUrl = "http://localhost:4000/api/media/" + mediaId;
+        axios.delete(mediaUrl).then((res) => {
+            setMedias(medias.filter(media => media.id !== mediaId))
+        });
+    };
 
-    if (!media) return null;
+    if (!medias) return null;
 
-    const getMediaToDisplay = media.map((item) => {
+    const getMediaToDisplay = medias.map((media) => {
         return (
-            <div className="showMedia" key={"media" + item.id}>
+            <div className="showMedia" key={"media" + media.id}>
                 <div className="showMedia_header">
-                    <Avatar />
-                    <Pseudo userNumber={item.UserId} />
-                    <button className="showMedia_header-supprimer" style={{cursor: "pointer"}} onClick={(e) => removeMedia(media.id)}>supprimer</button>
+                    <Avatar user={media.user} />
+                    <button
+                        className="showMedia_header-supprimer"
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => removeMedia(media.id)}
+                    >
+                        supprimer
+                    </button>
                 </div>
-                
+
                 <div className="showMedia_image">
                     <img
-                        src={`http://localhost:4000/images/${item.filename}`}
+                        src={`http://localhost:4000/images/${media.filename}`}
                         alt="your media here"
                     />
                 </div>
                 <div className="showMedia_title">
-                    <h3>{item.title}</h3>
+                    <h3>{media.title}</h3>
                 </div>
-                <div className="showMedia_description">{item.description}</div>
+                <div className="showMedia_description">{media.description}</div>
                 <div>
-                    <Comment mediaNumber={item.id} />
+                    <Comment mediaNumber={media.id} />
                 </div>
                 <div>
-                    <CommentsByMedia mediaNumber={item.id} />
+                    <CommentsByMedia mediaNumber={media.id} />
                 </div>
             </div>
         );

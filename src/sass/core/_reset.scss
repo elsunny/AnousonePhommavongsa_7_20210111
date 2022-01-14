@@ -21,8 +21,12 @@ a:visited {
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 input {
-  border-radius: 10px;
+  padding: 16px;
+  line-height: 16px;
+  font-size: 16px;
 }
