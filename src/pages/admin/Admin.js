@@ -1,9 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import MainContainer from "components/mainContainer/MainContainer";
+import Header from "components/header/Header";
+import axios from 'axios';
 
 export const Admin = () => {
+
+    const baseUrl = "http://localhost:4000/api/user";
+
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        axios.get(baseUrl).then((res) => {
+            setUser(res.data);
+        });
+    }, []);
+    
+    if (!user) return null;
+    
+    const getUserToDisplay = user.map(item => {
+        return (
+            <li className="showUser" key={"user" + item.id}>{`${item.id} ${item.pseudo} ${item.role}`}</li>
+        )
+
+    })
+
+
+
+
+
     return (
-        <div>
-            <h1>Bienvenue sur la page Administration</h1>
+        <div className="pageContainer">
+            <Header showLink="showAdminLink" />
+            <MainContainer>
+                {getUserToDisplay}
+            </MainContainer>
         </div>
     )
-}
+    }

@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import Avatar from 'components/avatar/Avatar';
 import axios from 'axios';
+import "./Comment.scss";
 
 export const Comment = (props) => {
 
@@ -21,7 +22,7 @@ export const Comment = (props) => {
     };
 
     return (
-        <div>
+        <div className='commentaire'>
             <Avatar />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input {...register("userComment")} type="text" id="userComment" name="userComment" />

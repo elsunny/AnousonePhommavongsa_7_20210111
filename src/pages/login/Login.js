@@ -16,6 +16,7 @@ const Login = () => {
         axios.post('http://localhost:4000/api/user/login', data)
         .then((res) => {
             navigate('/media');
+            console.log('data login', res.data);
         })
         .catch((err) => console.error(err));
     }

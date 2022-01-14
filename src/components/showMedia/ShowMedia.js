@@ -7,10 +7,9 @@ import { CommentsByMedia } from "components/comment/CommentsByMedia";
 import "./ShowMedia.scss";
 import MediaAddEvent from "events/MediaAdd";
 
-const baseUrl = "http://localhost:4000/api/media";
-
 export default function ShowMedia() {
     const [media, setMedia] = useState(null);
+    const baseUrl = "http://localhost:4000/api/media";
 
     useEffect(() => {
         axios.get(baseUrl).then((res) => {
@@ -19,35 +18,43 @@ export default function ShowMedia() {
     }, []);
 
     useEffect(() => {
-        const callback = (event)=>{
+        const callback = (event) => {
             setMedia([event.detail, ...media]);
-            console.log('callback', event);
+            console.log("callback", event);
         };
-        document.addEventListener(MediaAddEvent.event, callback )
-        return ()=>{
+        document.addEventListener(MediaAddEvent.event, callback);
+        return () => {
             document.removeEventListener(MediaAddEvent.event, callback);
-        }
-    })
+        };
+    });
+
+    const removeMedia = (item) => {
+        const mediaUrl = "http://localhost:4000/api/media/" + item;
+            axios.delete(mediaUrl, item)
+                .then(res => console.log(res))
+    }
 
     if (!media) return null;
 
-    const getMediaToDisplay = media.map(item => {
+    const getMediaToDisplay = media.map((item) => {
         return (
             <div className="showMedia" key={"media" + item.id}>
                 <div className="showMedia_header">
                     <Avatar />
-                    <Pseudo userNumber={item.UserId}/>
+                    <Pseudo userNumber={item.UserId} />
+                    <button className="showMedia_header-supprimer" style={{cursor: "pointer"}} onClick={(e) => removeMedia(media.id)}>supprimer</button>
                 </div>
-                <div className="showMedia_title">
-                    <h3>{item.title}</h3>
-                </div>
+                
                 <div className="showMedia_image">
                     <img
                         src={`http://localhost:4000/images/${item.filename}`}
                         alt="your media here"
                     />
                 </div>
-                <div>{item.description}</div>
+                <div className="showMedia_title">
+                    <h3>{item.title}</h3>
+                </div>
+                <div className="showMedia_description">{item.description}</div>
                 <div>
                     <Comment mediaNumber={item.id} />
                 </div>

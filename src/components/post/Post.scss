@@ -33,10 +33,13 @@
         grid-area: control;
         display: flex;
         justify-content: space-between;
-        margin-top: 10px;
+        flex-basis: auto;
         &_add, &_publier {
             background-color: variables.$clr-mediumLight;
             cursor: pointer;
+        }
+        &_publier {
+            text-align: right;
         }
     }
 

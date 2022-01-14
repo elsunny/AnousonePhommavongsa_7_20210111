@@ -10,6 +10,7 @@ export default function Post() {
         register,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm();
 
     const onSubmit = (data) => {
@@ -30,6 +31,9 @@ export default function Post() {
                 console.log('dispatch', res.data);
             })
             .catch((err) => console.error(err));
+
+        // efface le formulaire
+        reset();
     }
 
     return (

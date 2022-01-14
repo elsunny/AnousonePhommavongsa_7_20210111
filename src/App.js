@@ -7,6 +7,7 @@ import Profile from "./pages/profile/Profile";
 import { Deconnexion } from "pages/deconnexion/Deconnexion";
 import { Admin } from "pages/admin/Admin";
 import ErrorPage from "pages/error/ErrorPage";
+import Avatar from "components/avatar/Avatar";
 
 import "./sass/app.scss";
 
@@ -17,11 +18,11 @@ const App = () => {
                 <Route path="/" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="login" element={<Login />} />
-                <Route path="profile" element={<Profile />} />
                 <Route path="media" element={<Media />} />
                 <Route path="deconnexion" element={<Deconnexion />} />
                 <Route path="admin" element={<Admin />} />
                 <Route path="*" element={<ErrorPage />} />
+                <Route path="profile/:id" element={<Profile />} />
 
                 
             </Routes>

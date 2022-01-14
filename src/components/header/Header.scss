@@ -26,4 +26,24 @@
             object-position: -10px -110px;
         }
     }
+    &__link {
+        &-admin {
+            display: none;
+        }
+        &-deconnexion {
+            cursor: pointer;
+            border: 0;
+            background-color: white;
+        }
+    }
+}
+
+// fait apparaître le lien pour l'administrateur seulement sur la page admin
+.showAdminLink {
+    display: initial;
+}
+
+// fait disparaître l'avatar lorsqu'on est sur la page profile
+.showAvatarImage {
+    visibility: hidden;
 }
