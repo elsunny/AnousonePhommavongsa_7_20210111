@@ -34,10 +34,10 @@ export default function Profile() {
 
     const onSubmit = (data) => {
         const formData = new FormData();
-        formData.append("file", data.filename[0]);
         formData.append("id", id);
+        formData.append("file", data.image[0]);
 
-        const url = "http://localhost:4000/api/user/profile/1";
+        const url = "http://localhost:4000/api/user/profile/8";
 
         axios
             .put(url, formData)
@@ -63,9 +63,9 @@ export default function Profile() {
                         >
                             <div className="postCard_control">
                                 <input
-                                    {...register("filename")}
+                                    {...register("image")}
                                     type="file"
-                                    name="filename"
+                                    name="image"
                                     className="postCard_control_add"
                                 />
                                 <input

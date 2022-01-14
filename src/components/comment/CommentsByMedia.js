@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
+import "./CommentsByMedia.scss";
 
 export const CommentsByMedia = (props) => {
     const [error, setError] = useState(null);
@@ -46,7 +47,7 @@ export const CommentsByMedia = (props) => {
     
 
     return (
-        <div>
+        <div className="mediaComment">
             <Avatar />
             <div>{displayMediaComments}</div>
         </div>
