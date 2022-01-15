@@ -34,7 +34,9 @@ export const CommentsByMedia = (props) => {
     // supprime les commentaires
     const removeComment = (commentId) => {
         const commentUrl = "http://localhost:4000/api/comment/" + commentId;
-        axios.delete(commentUrl, commentId).then((res) => console.log(res));
+        axios.delete(commentUrl).then((res) => {
+            setComments(comments.filter((comment) => comment.id !== commentId));
+        });
     };
 
     // refresh page when a new comment is added
@@ -51,22 +53,18 @@ export const CommentsByMedia = (props) => {
     if (!comments) return null;
 
     const displayMediaComments = comments.map((comment) => {
-        if (comment != null) {
-            let foundComment = (
-                <div key={"comment" + comment.id}>
-                    <p>{comment.message}</p>
-                    <button
-                        style={{ cursor: "pointer" }}
-                        onClick={(e) => removeComment(comment.id)}
-                    >
-                        supprimer
-                    </button>
-                </div>
-            );
-            return foundComment;
-        }
+        return (
+            <div key={"comment" + comment.id}>
+                <p>{comment.message}</p>
+                <button
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => removeComment(comment.id)}
+                >
+                    supprimer
+                </button>
+            </div>
+        );
     });
-
 
     return (
         <div className="mediaComment">
