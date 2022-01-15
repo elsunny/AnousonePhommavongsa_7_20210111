@@ -32,9 +32,9 @@ export const CommentsByMedia = (props) => {
     }, [url]);
 
     // supprime les commentaires
-    const removeComment = (item) => {
-        const commentUrl = "http://localhost:4000/api/comment/" + item;
-        axios.delete(commentUrl, item).then((res) => console.log(res));
+    const removeComment = (commentId) => {
+        const commentUrl = "http://localhost:4000/api/comment/" + commentId;
+        axios.delete(commentUrl, commentId).then((res) => console.log(res));
     };
 
     // refresh page when a new comment is added
@@ -66,6 +66,7 @@ export const CommentsByMedia = (props) => {
             return foundComment;
         }
     });
+
 
     return (
         <div className="mediaComment">

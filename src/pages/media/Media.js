@@ -15,9 +15,7 @@ export default function Media() {
             <Header />
             <MainContainer>
                 <Post />
-                <ErrorBoundary>
                     <ShowMedia />
-                </ErrorBoundary>
             </MainContainer>
         </div>
     );
