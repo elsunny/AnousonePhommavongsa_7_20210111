@@ -6,7 +6,7 @@ import "./CommentsByMedia.scss";
 
 export const CommentsByMedia = (props) => {
     const [error, setError] = useState(null);
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState(null);
     const hasFetchedData = useRef(false);
     const mediaId = props.mediaNumber;
     const url = "http://localhost:4000/api/comment/" + mediaId;
@@ -37,7 +37,7 @@ export const CommentsByMedia = (props) => {
         axios.delete(commentUrl, item).then((res) => console.log(res));
     };
 
-    // refresh page when a new media is added
+    // refresh page when a new comment is added
     useEffect(() => {
         const callback = (event) => {
             setComments([event.detail, ...comments]);
