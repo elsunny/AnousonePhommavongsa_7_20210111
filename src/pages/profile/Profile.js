@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Header from "components/header/Header";
 import MainContainer from "components/mainContainer/MainContainer";
@@ -10,11 +10,21 @@ import axios from "axios";
 export default function Profile() {
     const { register, handleSubmit } = useForm();
 
-    const { id } = useParams();
+    const { id } = useParams(); //id du profil
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null); //information sur l'utilisateur du profil
 
-    // récupère les informations utilisateurs
+    const [sessionUser, setSessionUser] = useState(null);
+
+    const navigate = useNavigate();
+
+    // récupère les informations de l'utilisateur de session
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/user/me")
+            .then(res => setSessionUser(res.data));
+    }, [])
+
+    // récupère les informations utilisateur du profil
     useEffect(() => {
         const url = "http://localhost:4000/api/user/" + id;
         axios
@@ -41,7 +51,15 @@ export default function Profile() {
             .catch((err) => console.error(err));
     };
 
-    
+    // remove user
+    const removeUser = (userId) => {
+        const userUrl = "http://localhost:4000/api/user/" + userId;
+        axios.delete(userUrl).then((res) => {
+            console.log("utilisateur supprimé");
+            navigate("/suppression");
+        });
+    };
+
     return (
         <div className="profileContainer">
             <Header showAvatar="showAvatarImage" />
@@ -92,7 +110,14 @@ export default function Profile() {
                         </div>
                         <div className="profileCard_button">
                             <button>Modifier</button>
-                            <button>Supprimer</button>
+                            {sessionUser.role === "admin" && (
+                                <button
+                                    style={{ cursor: "pointer" }}
+                                    onClick={(e) => removeUser(id)}
+                                >
+                                    Supprimer
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

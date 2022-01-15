@@ -56,12 +56,14 @@ export const CommentsByMedia = (props) => {
         return (
             <div key={"comment" + comment.id}>
                 <p>{comment.message}</p>
-                <button
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => removeComment(comment.id)}
-                >
-                    supprimer
-                </button>
+                {(user.role === "admin" || user.role === "moderator") && (
+                    <button
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => removeComment(comment.id)}
+                    >
+                        supprimer
+                    </button>
+                )}
             </div>
         );
     });

@@ -9,6 +9,15 @@ import MediaAddEvent from "events/MediaAdd";
 export default function ShowMedia() {
     const [medias, setMedias] = useState(null);
 
+    const [user, setUser] = useState(null);
+
+    // get informations about the session user
+    useEffect(() => {
+        axios
+            .get("http://localhost:4000/api/user/me")
+            .then((res) => setUser(res.data));
+    }, []);
+
     // display all medias
     useEffect(() => {
         const baseUrl = "http://localhost:4000/api/media";
@@ -54,7 +63,7 @@ export default function ShowMedia() {
     const removeMedia = (mediaId) => {
         const mediaUrl = "http://localhost:4000/api/media/" + mediaId;
         axios.delete(mediaUrl).then((res) => {
-            setMedias(medias.filter(media => media.id !== mediaId))
+            setMedias(medias.filter((media) => media.id !== mediaId));
         });
     };
 
@@ -65,13 +74,15 @@ export default function ShowMedia() {
             <div className="showMedia" key={"media" + media.id}>
                 <div className="showMedia_header">
                     <Avatar user={media.user} />
-                    <button
-                        className="showMedia_header-supprimer"
-                        style={{ cursor: "pointer" }}
-                        onClick={(e) => removeMedia(media.id)}
-                    >
-                        supprimer
-                    </button>
+                    {(user.role === "admin" || user.role === "moderator") && (
+                        <button
+                            className="showMedia_header-supprimer"
+                            style={{ cursor: "pointer" }}
+                            onClick={(e) => removeMedia(media.id)}
+                        >
+                            supprimer
+                        </button>
+                    )}
                 </div>
 
                 <div className="showMedia_image">
