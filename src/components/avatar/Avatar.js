@@ -6,9 +6,11 @@ export default function Avatar(props) {
 
 if (!props.user) return null;
 
+
     return (
-        <div className="Avatar">
-            <Link to={`/profile/${props.user.id}`}>{props.user.pseudo}</Link>
+        
+        <div className="Avatar" style={{ backgroundImage: `url(http://localhost:4000/avatarImage/${props.user.image})`}}>
+            <Link to={`/profile/${props.user.id}`}>{!props.user.image && props.user.pseudo}</Link>
         </div>
     );
 }

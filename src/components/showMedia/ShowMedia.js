@@ -25,7 +25,6 @@ export default function ShowMedia() {
                     return axios.get(url).then((res) => res.data);
                 });
             Promise.all(usersPromise).then((users) => {
-                console.log("users", users);
                 setMedias(
                     medias.map((media) => {
                         return {
@@ -44,7 +43,6 @@ export default function ShowMedia() {
     useEffect(() => {
         const callback = (event) => {
             setMedias([event.detail, ...medias]);
-            console.log("callback", event);
         };
         document.addEventListener(MediaAddEvent.event, callback);
         return () => {

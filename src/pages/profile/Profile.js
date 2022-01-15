@@ -8,16 +8,13 @@ import "./Profile.scss";
 import axios from "axios";
 
 export default function Profile() {
-    const {
-        register,
-        handleSubmit,
-    } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const { id } = useParams();
-    console.log("id", id);
 
     const [user, setUser] = useState(null);
 
+    // récupère les informations utilisateurs
     useEffect(() => {
         const url = "http://localhost:4000/api/user/" + id;
         axios
@@ -29,8 +26,6 @@ export default function Profile() {
     if (!user) return null;
 
     // handle le image avatar upload
-    
-
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append("id", id);
@@ -46,13 +41,14 @@ export default function Profile() {
             .catch((err) => console.error(err));
     };
 
+    
     return (
         <div className="profileContainer">
             <Header showAvatar="showAvatarImage" />
             <MainContainer>
                 <div className="profileCard">
                     <div className="profileCard_avatar">
-                        <Avatar />
+                        <Avatar user={user} />
                         <form
                             className="postCard_form"
                             id="postForm"

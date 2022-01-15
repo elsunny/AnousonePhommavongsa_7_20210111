@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
+import CommentAddEvent from "events/CommentAdd";
 import "./CommentsByMedia.scss";
 
 export const CommentsByMedia = (props) => {
@@ -9,7 +10,16 @@ export const CommentsByMedia = (props) => {
     const hasFetchedData = useRef(false);
     const mediaId = props.mediaNumber;
     const url = "http://localhost:4000/api/comment/" + mediaId;
-    
+
+    // récupère les informations utilisateurs
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:4000/api/user/me")
+            .then((res) => setUser(res.data));
+    }, []);
+
     // affiche tout les commentaires liées à un média
     useEffect(() => {
         axios.get(url).then(
@@ -21,34 +31,45 @@ export const CommentsByMedia = (props) => {
         );
     }, [url]);
 
-
     // supprime les commentaires
     const removeComment = (item) => {
         const commentUrl = "http://localhost:4000/api/comment/" + item;
-            axios.delete(commentUrl, item)
-                .then(res => console.log(res))
-    }
+        axios.delete(commentUrl, item).then((res) => console.log(res));
+    };
+
+    // refresh page when a new media is added
+    useEffect(() => {
+        const callback = (event) => {
+            setComments([event.detail, ...comments]);
+        };
+        document.addEventListener(CommentAddEvent.event, callback);
+        return () => {
+            document.removeEventListener(CommentAddEvent.event, callback);
+        };
+    });
 
     if (!comments) return null;
 
     const displayMediaComments = comments.map((comment) => {
         if (comment != null) {
             let foundComment = (
-                <div  key={"comment" + comment.id} >
+                <div key={"comment" + comment.id}>
                     <p>{comment.message}</p>
-                    <button style={{cursor: "pointer"}} onClick={(e) => removeComment(comment.id)}>supprimer</button>
+                    <button
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => removeComment(comment.id)}
+                    >
+                        supprimer
+                    </button>
                 </div>
             );
             return foundComment;
         }
     });
 
-
-    
-
     return (
         <div className="mediaComment">
-            <Avatar />
+            {displayMediaComments.length !== 0 && <Avatar user={user} />}
             <div>{displayMediaComments}</div>
         </div>
     );

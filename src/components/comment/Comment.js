@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import Avatar from 'components/avatar/Avatar';
 import axios from 'axios';
+import CommentAddEvent from "events/CommentAdd";
 import "./Comment.scss";
 
 export const Comment = (props) => {
 
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/user/me")
+            .then(res => setUser(res.data));
+    }, [])
+
     const {
         register,
         handleSubmit,
+        reset
     } = useForm();
     
     const mediaId = props.mediaNumber;
@@ -18,12 +27,15 @@ export const Comment = (props) => {
         axios.post(url, {
             message: data.userComment,
         })
-            .then(res => console.log('res', res))
+            .then(res => 
+                document.dispatchEvent(new CommentAddEvent(res.data)));
+        // efface le formulaire
+        reset();
     };
 
     return (
         <div className='commentaire'>
-            <Avatar />
+            <Avatar user={user} />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input {...register("userComment")} type="text" id="userComment" name="userComment" />
                 <input type="submit" />

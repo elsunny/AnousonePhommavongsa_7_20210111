@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
@@ -6,6 +6,15 @@ import "./Post.scss";
 import MediaAddEvent from "events/MediaAdd";
 
 export default function Post() {
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/user/me")
+            .then(res => setUser(res.data));
+    }, [])
+
+
     const {
         register,
         handleSubmit,
@@ -28,7 +37,6 @@ export default function Post() {
             .post(url, formData)
             .then((res) => {
                 document.dispatchEvent(new MediaAddEvent(res.data));
-                console.log('dispatch', res.data);
             })
             .catch((err) => console.error(err));
 
@@ -39,7 +47,7 @@ export default function Post() {
     return (
         <div className="postCard">
             <div className="postCard_avatar">
-                <Avatar />
+                <Avatar user={user}/>
             </div>
             <form
                 className="postCard_form"
