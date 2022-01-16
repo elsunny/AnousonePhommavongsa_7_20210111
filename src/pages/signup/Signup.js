@@ -14,6 +14,7 @@ const Signup = () => {
     const manageSubmit = (data) => {
         axios.post("http://localhost:4000/api/user/signup", data)
             .then((res) => {
+                sessionStorage.setItem("user", JSON.stringify(res.data))
                 navigate('/media');
             })
             .catch((err) => console.error(err));

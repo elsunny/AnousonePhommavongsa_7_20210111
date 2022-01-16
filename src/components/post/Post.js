@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
@@ -7,12 +7,8 @@ import MediaAddEvent from "events/MediaAdd";
 
 export default function Post() {
 
-    const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        axios.get("http://localhost:4000/api/user/me")
-            .then(res => setUser(res.data));
-    }, [])
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
 
     const {

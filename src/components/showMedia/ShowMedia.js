@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Avatar from "components/avatar/Avatar";
-import { Comment } from "components/comment/Comment";
+import { CommentAdd } from "components/comment/CommentAdd";
 import { CommentsByMedia } from "components/comment/CommentsByMedia";
 import "./ShowMedia.scss";
 import MediaAddEvent from "events/MediaAdd";
@@ -9,14 +9,7 @@ import MediaAddEvent from "events/MediaAdd";
 export default function ShowMedia() {
     const [medias, setMedias] = useState(null);
 
-    const [user, setUser] = useState(null);
-
-    // get informations about the session user
-    useEffect(() => {
-        axios
-            .get("http://localhost:4000/api/user/me")
-            .then((res) => setUser(res.data));
-    }, []);
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     // display all medias
     useEffect(() => {
@@ -96,7 +89,7 @@ export default function ShowMedia() {
                 </div>
                 <div className="showMedia_description">{media.description}</div>
                 <div>
-                    <Comment mediaNumber={media.id} />
+                    <CommentAdd mediaNumber={media.id} />
                 </div>
                 <div>
                     <CommentsByMedia mediaNumber={media.id} />

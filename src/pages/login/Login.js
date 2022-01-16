@@ -15,6 +15,7 @@ const Login = () => {
     const manageSubmit = (data) => {
         axios.post('http://localhost:4000/api/user/login', data)
         .then((res) => {
+            sessionStorage.setItem("user", JSON.stringify(res.data));
             navigate('/media');
             console.log('data login', res.data);
         })

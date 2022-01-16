@@ -1,24 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Avatar from "components/avatar/Avatar";
-import CommentAddEvent from "events/CommentAdd";
+import { Comment } from "./Comment";
 import "./CommentsByMedia.scss";
+import CommentAddEvent from "events/CommentAdd";
+import CommentDeleteEvent from "events/CommentDelete";
 
 export const CommentsByMedia = (props) => {
     const [error, setError] = useState(null);
     const [comments, setComments] = useState(null);
     const hasFetchedData = useRef(false);
     const mediaId = props.mediaNumber;
+    const [displayAll, setDisplayAll] = useState(false);
     const url = "http://localhost:4000/api/comment/" + mediaId;
 
-    // récupère les informations utilisateurs
-    const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        axios
-            .get("http://localhost:4000/api/user/me")
-            .then((res) => setUser(res.data));
-    }, []);
 
     // affiche tout les commentaires liées à un média
     useEffect(() => {
@@ -31,18 +26,13 @@ export const CommentsByMedia = (props) => {
         );
     }, [url]);
 
-    // supprime les commentaires
-    const removeComment = (commentId) => {
-        const commentUrl = "http://localhost:4000/api/comment/" + commentId;
-        axios.delete(commentUrl).then((res) => {
-            setComments(comments.filter((comment) => comment.id !== commentId));
-        });
-    };
-
     // refresh page when a new comment is added
     useEffect(() => {
         const callback = (event) => {
-            setComments([event.detail, ...comments]);
+            console.log("Medium", event.detail, mediaId);
+            if (event.detail.MediumId === mediaId) {
+                setComments([event.detail, ...comments]);
+            }
         };
         document.addEventListener(CommentAddEvent.event, callback);
         return () => {
@@ -50,27 +40,31 @@ export const CommentsByMedia = (props) => {
         };
     });
 
-    if (!comments) return null;
+    // refresh page when a media is deleted
+    useEffect(() => {
+        const callback = (event) => {
+            const newComments = comments.filter(
+                (comment) => comment.id !== event.detail.id
+            );
+            if (newComments.length !== comments.length)
+                setComments(newComments);
+        };
+        document.addEventListener(CommentDeleteEvent.event, callback);
+        return () => {
+            document.removeEventListener(CommentDeleteEvent.event, callback);
+        };
+    });
 
-    const displayMediaComments = comments.map((comment) => {
-        return (
-            <div key={"comment" + comment.id}>
-                <p>{comment.message}</p>
-                {(user.role === "admin" || user.role === "moderator") && (
-                    <button
-                        style={{ cursor: "pointer" }}
-                        onClick={(e) => removeComment(comment.id)}
-                    >
-                        supprimer
-                    </button>
-                )}
-            </div>
-        );
+    
+    if (!comments) return null;
+    const commentsToDisplay = displayAll ? comments : comments.slice(0,2);
+    
+    const displayMediaComments = commentsToDisplay.map((comment) => {
+        return <Comment comment={comment} key={"comment" + comment.id} />;
     });
 
     return (
         <div className="mediaComment">
-            {displayMediaComments.length !== 0 && <Avatar user={user} />}
             <div>{displayMediaComments}</div>
         </div>
     );

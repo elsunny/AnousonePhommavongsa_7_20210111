@@ -16,9 +16,16 @@ export default function Header(props) {
     const handleClick = () => {
         axios
             .post("http://localhost:4000/api/user/logout")
-            .then((res) => console.log(res.data));
-        navigate("/deconnexion");
+            .then((res) => {
+                sessionStorage.removeItem("user");
+                navigate("/deconnexion");
+
+            });
     };
+
+    const handleClickBack = () => {
+        navigate("/media");
+    }
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/user/me")
@@ -35,6 +42,7 @@ export default function Header(props) {
             </div>
             <div className="header__link">
                 <button className={`header__link-admin ${props.showLink}`}>Admin</button>
+                <button className="header__link-back" onClick={handleClickBack}>Home</button>
                 <button className="header__link-deconnexion" onClick={handleClick}>Déconnexion</button>
             </div>
         </div>

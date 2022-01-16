@@ -14,15 +14,8 @@ export default function Profile() {
 
     const [user, setUser] = useState(null); //information sur l'utilisateur du profil
 
-    const [sessionUser, setSessionUser] = useState(null);
-
+    const sessionUser = JSON.parse(sessionStorage.getItem("user"));
     const navigate = useNavigate();
-
-    // récupère les informations de l'utilisateur de session
-    useEffect(() => {
-        axios.get("http://localhost:4000/api/user/me")
-            .then(res => setSessionUser(res.data));
-    }, [])
 
     // récupère les informations utilisateur du profil
     useEffect(() => {
@@ -38,15 +31,16 @@ export default function Profile() {
     // handle le image avatar upload
     const onSubmit = (data) => {
         const formData = new FormData();
-        formData.append("id", id);
         formData.append("file", data.image[0]);
-
+        formData.append("pseudo", data.pseudo);
+        formData.append("description", data.description);
+        
         const url = "http://localhost:4000/api/user/profile/" + id;
 
         axios
             .put(url, formData)
             .then((res) => {
-                console.log("avatar", res.data);
+                window.location.reload();
             })
             .catch((err) => console.error(err));
     };
@@ -74,51 +68,65 @@ export default function Profile() {
                             encType="multipart/form-data"
                             onSubmit={handleSubmit(onSubmit)}
                         >
-                            <div className="postCard_control">
+                            {sessionUser.id === user.id && (
+                                <div className="postCard_control">
+                                    <input
+                                        {...register("image")}
+                                        type="file"
+                                        name="image"
+                                        className="postCard_control_add"
+                                    />
+                                    
+                                </div>
+                            )}
+
+                            {/* affiche le nom du profil d'un utilisateur qui a été cliqué, ce profil n'est pas focémment le profil de l'utilisateur de la sesssion  */}
+                            {user.id === sessionUser.id ? (
                                 <input
-                                    {...register("image")}
-                                    type="file"
-                                    name="image"
-                                    className="postCard_control_add"
+                                    {...register("pseudo")}
+                                    name="pseudo"
+                                    type="text"
+                                    defaultValue={user.pseudo}
                                 />
-                                <input
-                                    type="submit"
-                                    name="postCard_control_publier"
-                                    value="Publier"
-                                    className="postCard_control_publier"
-                                />
+                            ) : (
+                                <div className="profileCard_avatar_name">
+                                    {user.pseudo}
+                                </div>
+                            )}
+                            <div className="profileCard_about">
+                                <div className="profileCard_about_title">
+                                    About
+                                </div>
+                                {user.id === sessionUser.id ? (
+                                    <textarea
+                                        {...register("description")}
+                                        name="description"
+                                        className="profileCard_about_description"
+                                        defaultValue={user.description || ""}
+                                    />
+                                    
+                                ) : (
+                                    <div>{user.description}</div>
+                                )}
+                            </div>
+                            <div className="profileCard_button">
+                                    {user.id === sessionUser.id && (<input
+                                        type="submit"
+                                        name="postCard_control_publier"
+                                        value="Publier"
+                                        className="postCard_control_publier"
+                                    /> )}
+                                {(sessionUser.role === "admin") &&
+                                    (sessionUser.id !== user.id) && (
+                                    <button
+                                        style={{ cursor: "pointer" }}
+                                        onClick={(e) => removeUser(id)}
+                                    >
+                                        Supprimer
+                                    </button>
+                                )}
                             </div>
                         </form>
-                        {/* affiche le nom du profil d'un utilisateur qui a été cliqué, ce profil n'est pas focémment le profil de l'utilisateur de la sesssion  */}
-                        <div className="profileCard_avatar_name">
-                            {user.pseudo}
-                        </div>
-                        <button>Modifier la photo</button>
-                        <div className="profileCard_about">
-                            <div className="profileCard_about_title">About</div>
-                            <div className="profileCard_about_description">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Soluta asperiores vitae
-                                perspiciatis tempore, fugit obcaecati molestias!
-                                Unde veniam nam accusantium repellendus
-                                perspiciatis iure obcaecati labore, perferendis
-                                laboriosam natus sint, rerum, earum expedita.
-                                Amet facere aspernatur placeat nam maxime dicta
-                                totam, reiciendis repellendus, atque odio, ipsam
-                                dolores fugiat sit ea. Excepturi!
-                            </div>
-                        </div>
-                        <div className="profileCard_button">
-                            <button>Modifier</button>
-                            {sessionUser.role === "admin" && (
-                                <button
-                                    style={{ cursor: "pointer" }}
-                                    onClick={(e) => removeUser(id)}
-                                >
-                                    Supprimer
-                                </button>
-                            )}
-                        </div>
                     </div>
                 </div>
             </MainContainer>
