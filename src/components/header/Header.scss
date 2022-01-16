@@ -1,9 +1,18 @@
+@use "../../sass/abstracts/mixins";
+
 .header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     font-size: 16px;
     padding: 10px;
     &__avatar {
+        @include mixins.breakpoint(mobile) {
+            display: none;
+        }
+        @include mixins.breakpoint(tablet) {
+            display: initial;
+        }
         display: inline-block;
         overflow: hidden;
         position: relative;
@@ -11,6 +20,7 @@
         height: 80px;
 
         .Avatar {
+            
             position: absolute;
             top: 0;
             left: 0;
@@ -27,9 +37,6 @@
         }
     }
     &__link {
-        &-admin {
-            display: none;
-        }
         &-deconnexion {
             cursor: pointer;
             border: 0;
@@ -38,12 +45,3 @@
     }
 }
 
-// fait apparaître le lien pour l'administrateur seulement sur la page admin
-.showAdminLink {
-    display: initial;
-}
-
-// // fait disparaître l'avatar lorsqu'on est sur la page profile
-// .showAvatarImage {
-//     visibility: hidden;
-// }

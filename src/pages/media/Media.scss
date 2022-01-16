@@ -1,12 +1,19 @@
 @use "../../sass/abstracts/mixins";
 
 .pageContainer {
-    @include mixins.card_shape;
-    width: 100%;
-    margin: 10px 0;
-    .MainContainer {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    @include mixins.breakpoint(mobile) {
+        min-width: 375px;
     }
+    @include mixins.breakpoint(tablet) {
+        @include mixins.card_shape;
+        min-width: 768px;
+    }
+    @include mixins.breakpoint(desktop) {
+        min-width: 1024px;
+    }
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

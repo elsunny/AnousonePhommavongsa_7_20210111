@@ -17,7 +17,6 @@ const Login = () => {
         .then((res) => {
             sessionStorage.setItem("user", JSON.stringify(res.data));
             navigate('/media');
-            console.log('data login', res.data);
         })
         .catch((err) => console.error(err));
     }

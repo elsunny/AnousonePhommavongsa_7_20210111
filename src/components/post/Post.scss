@@ -4,7 +4,7 @@
 
 .postCard {
     @include mixins.card_shape;
-    width: 600px;
+    width: 100%;
     background-color: variables.$clr-mediumLight;
     display: grid;
     column-gap: 10px;

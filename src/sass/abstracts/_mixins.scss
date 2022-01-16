@@ -4,15 +4,19 @@
 // définition des breakpoints pour le responsive
 @mixin breakpoint($point) {
     @if $point == mobile {
-        @media screen and (max-width: 768px) {
+        @media screen and (min-width: 375px) { 
             @content;
         }
     } @else if $point == tablet {
-        @media screen and (max-width: 1280px) {
+        @media screen and (min-width: 768px) {
+            @content;
+        }
+    } @else if $point == laptop {
+        @media screen and (min-width: 1280px) {
             @content;
         }
     } @else if $point == desktop {
-        @media screen and (max-width: 1600px) {
+        @media screen and (min-width: 1600px) {
             @content;
         }
     }

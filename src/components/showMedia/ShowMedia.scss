@@ -4,8 +4,8 @@
 
 .showMedia {
     @include mixins.card_shape;
-    width: 600px;
     background-color: variables.$clr-mediumLight;
+    width: 100%;
     &_header {
         display: flex;
         justify-content: space-between;
