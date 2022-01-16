@@ -1,4 +1,9 @@
+@use  "../../sass/abstracts/mixins";
+
 .MainContainer {
+        @include mixins.breakpoint(tablet) {
+                width: 768px;
+        }
         width: 1024px;
         display: flex;
         justify-content: center;

@@ -6,7 +6,7 @@ export const Suppression = () => {
 
     setTimeout(() => {
         navigate("/media");
-    }, 4000);
+    }, 2000);
 
     return (
         <div>

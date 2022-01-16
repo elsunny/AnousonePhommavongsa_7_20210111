@@ -49,7 +49,6 @@ export default function Profile() {
     const removeUser = (userId) => {
         const userUrl = "http://localhost:4000/api/user/" + userId;
         axios.delete(userUrl).then((res) => {
-            console.log("utilisateur supprimé");
             navigate("/suppression");
         });
     };

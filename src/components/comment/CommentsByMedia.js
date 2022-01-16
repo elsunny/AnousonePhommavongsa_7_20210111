@@ -29,7 +29,6 @@ export const CommentsByMedia = (props) => {
     // refresh page when a new comment is added
     useEffect(() => {
         const callback = (event) => {
-            console.log("Medium", event.detail, mediaId);
             if (event.detail.MediumId === mediaId) {
                 setComments([event.detail, ...comments]);
             }

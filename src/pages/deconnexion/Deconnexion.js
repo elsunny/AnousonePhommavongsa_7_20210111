@@ -6,7 +6,7 @@ export const Deconnexion = () => {
 
     setTimeout(() => {
         navigate("/login");
-    }, 4000);
+    }, 2000);
 
     return (
         <div>
