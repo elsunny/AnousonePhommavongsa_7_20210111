@@ -1,7 +1,6 @@
 @use "../../sass/abstracts/variables";
 @use "../../sass/abstracts/mixins";
 
-
 .postCard {
     @include mixins.card_shape;
     width: 100%;
@@ -9,21 +8,16 @@
     display: grid;
     column-gap: 10px;
     grid-template-columns: 50px auto 5px;
-    grid-template-areas: 
-    "avatar form"
-    " . control";
+    grid-template-areas:
+        "avatar form"
+        " . control";
     &_avatar {
         grid-area: avatar;
     }
     &_form {
         grid-area: form;
         input {
-            width: 100%;
-            border: 0;
-            line-height: 25px;
-            padding: 5px 10px;
-            
-           
+            @include mixins.input_shape;
         }
         div {
             margin-bottom: 10px;
@@ -34,7 +28,8 @@
         display: flex;
         justify-content: space-between;
         flex-basis: auto;
-        &_add, &_publier {
+        &_add,
+        &_publier {
             background-color: variables.$clr-mediumLight;
             cursor: pointer;
         }
@@ -42,5 +37,4 @@
             text-align: right;
         }
     }
-
 }

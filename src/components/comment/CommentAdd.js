@@ -34,14 +34,15 @@ export const CommentAdd = (props) => {
     return (
         <div className="comment-add">
             <Avatar user={user} />
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className="comment-add-form" onSubmit={handleSubmit(onSubmit)}>
                 <input
                     {...register("userComment")}
                     type="text"
                     id="userComment"
+                    className="comment-add-form-text"
                     name="userComment"
                 />
-                <input type="submit" />
+                <input className="comment-add-form-submit" type="submit" />
             </form>
         </div>
     );

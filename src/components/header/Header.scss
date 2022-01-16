@@ -37,10 +37,21 @@
         }
     }
     &__link {
+        &-back {
+            @include mixins.breakpoint(mobile) {
+                display: none;
+            }
+            @include mixins.breakpoint(tablet) {
+                display: initial;
+            }
+            border: 0;
+            background-color: rgba(0,0,0,0);
+            margin-right: 10px;
+        }
         &-deconnexion {
             cursor: pointer;
             border: 0;
-            background-color: white;
+            background-color: rgba(0,0,0,0);
         }
     }
 }

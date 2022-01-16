@@ -1,0 +1,23 @@
+@use "../../sass/abstracts/mixins";
+
+.userComment {
+    display: flex;
+    margin-top: 10px;
+    &-box {
+        display: flex;
+        p {
+            @include mixins.input_shape;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 5px 10px;
+            text-transform: capitalize;
+        }
+        button {
+            @include mixins.input_shape;
+            width: 100px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+    }
+}

@@ -1,10 +1,9 @@
 @use "./variables";
 
-
 // définition des breakpoints pour le responsive
 @mixin breakpoint($point) {
     @if $point == mobile {
-        @media screen and (min-width: 375px) { 
+        @media screen and (min-width: 375px) {
             @content;
         }
     } @else if $point == tablet {
@@ -31,4 +30,12 @@
     border-radius: 30px;
 }
 
-
+// input shape
+@mixin input_shape {
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    // border: solid 1px black;
+    line-height: 25px;
+    padding: 5px 10px;
+}

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Avatar from 'components/avatar/Avatar';
 import axios from 'axios';
 import CommentDeleteEvent from 'events/CommentDelete';
+import './Comment.scss';
 
 export const Comment = (props) => {
 
@@ -28,17 +29,18 @@ export const Comment = (props) => {
     };
 
     return (
-        <div>
+        <div className='userComment'>
             <Avatar user={commentUser} />
+            <div className="userComment-box">
                 <p>{props.comment.message}</p>
                 {(me.role === "admin" || me.role === "moderator" || me.id === comment.UserId) && (
                     <button
-                        style={{ cursor: "pointer" }}
                         onClick={(e) => removeComment(comment)}
                     >
                         supprimer
                     </button>
                 )}
+            </div>
         </div>
     )
 }

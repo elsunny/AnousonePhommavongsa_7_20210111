@@ -1,8 +1,28 @@
+@use "../../sass/abstracts/mixins";
+
 .comment-add {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-    
+    &-form {
+        margin-left: 10px;
+        width: 100%;
+        display: flex;
+    }
 }
+
+.comment-add-form {
+    &-text {
+        @include mixins.input_shape;
+        flex-grow: 2; 
+    }
+    &-submit {
+        @include mixins.input_shape;
+        width: 100px;
+        background-color: rgba(0, 0, 0, 0);
+
+    }
+}
+
