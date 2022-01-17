@@ -34,7 +34,7 @@ export default function Profile() {
         formData.append("file", data.image[0]);
         formData.append("pseudo", data.pseudo);
         formData.append("description", data.description);
-        
+
         const url = "http://localhost:4000/api/user/profile/" + id;
 
         axios
@@ -59,7 +59,9 @@ export default function Profile() {
             <MainContainer>
                 <div className="profileCard">
                     <div className="profileCard_avatar">
-                        <Avatar user={user} />
+                        <div className="avatar_photo">
+                            <Avatar user={user} />
+                        </div>
                         <form
                             className="postCard_form"
                             id="postForm"
@@ -69,13 +71,19 @@ export default function Profile() {
                         >
                             {sessionUser.id === user.id && (
                                 <div className="postCard_control">
+                                    <label
+                                        for="file-upload"
+                                        className="custom-file-upload"
+                                    >
+                                        Changer de photo
+                                    </label>
                                     <input
                                         {...register("image")}
                                         type="file"
+                                        id="file-upload"
                                         name="image"
                                         className="postCard_control_add"
                                     />
-                                    
                                 </div>
                             )}
 
@@ -85,6 +93,7 @@ export default function Profile() {
                                     {...register("pseudo")}
                                     name="pseudo"
                                     type="text"
+                                    id="postCard_pseudo"
                                     defaultValue={user.pseudo}
                                 />
                             ) : (
@@ -94,36 +103,39 @@ export default function Profile() {
                             )}
                             <div className="profileCard_about">
                                 <div className="profileCard_about_title">
-                                    About
+                                    <h1>About</h1>
                                 </div>
                                 {user.id === sessionUser.id ? (
                                     <textarea
                                         {...register("description")}
                                         name="description"
                                         className="profileCard_about_description"
+                                        rows="5"
+                                        cols="70"
                                         defaultValue={user.description || ""}
                                     />
-                                    
                                 ) : (
-                                    <div>{user.description}</div>
+                                    <div className="profileCard_about_description">{user.description}</div>
                                 )}
                             </div>
                             <div className="profileCard_button">
-                                    {user.id === sessionUser.id && (<input
+                                {user.id === sessionUser.id && (
+                                    <input
                                         type="submit"
                                         name="postCard_control_publier"
-                                        value="Publier"
+                                        value="Modifier"
                                         className="postCard_control_publier"
-                                    /> )}
-                                {(sessionUser.role === "admin") &&
-                                    (sessionUser.id !== user.id) && (
-                                    <button
-                                        style={{ cursor: "pointer" }}
-                                        onClick={(e) => removeUser(id)}
-                                    >
-                                        Supprimer
-                                    </button>
+                                    />
                                 )}
+                                {(sessionUser.role === "admin" &
+                                    sessionUser.id !== user.id) && 
+                                        <button
+                                            style={{ cursor: "pointer" }}
+                                            onClick={(e) => removeUser(id)}
+                                        >
+                                            Supprimer
+                                        </button>
+                                    }
                             </div>
                         </form>
                     </div>

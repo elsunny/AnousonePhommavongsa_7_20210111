@@ -15,7 +15,10 @@
 }
 
 .card_background {
-    @include mixins.card_shape;
+    @include mixins.breakpoint(tablet) {
+        @include mixins.card_shape;
+    }
+    // @include mixins.card_shape;
     overflow: hidden;
     &_logo {
         height: 150px;

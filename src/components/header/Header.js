@@ -41,7 +41,7 @@ export default function Header(props) {
                 <Logo />
             </div>
             <div className="header__link">
-                <button className="header__link-back" onClick={handleClickBack}>Home</button>
+                <button className="header__link-back" onClick={handleClickBack}>Publication</button>
                 <button className="header__link-deconnexion" onClick={handleClick}>Déconnexion</button>
             </div>
         </div>

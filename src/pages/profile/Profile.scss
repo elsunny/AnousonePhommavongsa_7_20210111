@@ -2,18 +2,81 @@
 @use "../../sass/abstracts/variables";
 
 .profileContainer {
-    @include mixins.card_shape;
-    width: 100%;
-    margin: 10px 0;
-    .MainContainer {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    @include mixins.breakpoint(mobile) {
+        min-width: 375px;
     }
+    @include mixins.breakpoint(tablet) {
+        @include mixins.card_shape;
+        min-width: 768px;
+    }
+    @include mixins.breakpoint(laptop) {
+        min-width: 1140px;
+    }
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // width: 768px;
 }
 
 .profileCard {
     @include mixins.card_shape;
-    width: 600px;
+    width: 100%;
     background-color: variables.$clr-mediumLight;
+    &_avatar {
+        padding: 20px;
+    }
+    &_about {
+        &_title {
+            margin-top: 50px;
+        }
+
+    }
+    &_button {
+        button {
+            cursor: pointer;
+            border: 0;
+            background-color: rgba(0,0,0,0);
+        }
+    }
+}
+
+#postCard_pseudo {
+    padding: 10px;
+    width: 200px;
+    text-transform: capitalize;
+    font-size: 20px;
+    border-radius: initial;
+    
+}
+
+.profileCard_about_description {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 0;
+}
+
+.custom-file-upload {
+    width: 200px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: black;
+}
+
+.avatar_photo {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    .Avatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }

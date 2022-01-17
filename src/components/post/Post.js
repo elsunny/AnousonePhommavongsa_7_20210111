@@ -6,28 +6,22 @@ import "./Post.scss";
 import MediaAddEvent from "events/MediaAdd";
 
 export default function Post() {
-
-
     const user = JSON.parse(sessionStorage.getItem("user"));
-
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
     } = useForm();
 
     const onSubmit = (data) => {
-
         const formData = new FormData();
-        formData.append('title', data.title);
-        formData.append('description', data.description);
-        formData.append('file', data.filename[0]);
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append("file", data.filename[0]);
 
-
-        const url="http://localhost:4000/api/media/";
-
+        const url = "http://localhost:4000/api/media/";
 
         axios
             .post(url, formData)
@@ -38,12 +32,12 @@ export default function Post() {
 
         // efface le formulaire
         reset();
-    }
+    };
 
     return (
         <div className="postCard">
             <div className="postCard_avatar">
-                <Avatar user={user}/>
+                <Avatar user={user} />
             </div>
             <form
                 className="postCard_form"
@@ -53,22 +47,30 @@ export default function Post() {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div>
-                    <input {...register("title")} name='title' placeholder="Titre" />
+                    <input
+                        {...register("title")}
+                        name="title"
+                        placeholder="Titre"
+                    />
                     <p>{errors.mediaTitle?.message}</p>
                 </div>
                 <div>
                     <input
                         {...register("description")}
-                        name='description'
+                        name="description"
                         placeholder="Votre description"
                     />
                     <p>{errors.mediaDescription?.message}</p>
                 </div>
                 <div className="postCard_control">
+                    <label for="file-upload" class="custom-file-upload">
+                         Ajouter photo
+                    </label>
                     <input
                         {...register("filename")}
                         type="file"
-                        name='filename'
+                        id="file-upload"
+                        name="filename"
                         className="postCard_control_add"
                     />
                     <input
