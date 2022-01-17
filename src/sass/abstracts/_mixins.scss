@@ -1,6 +1,6 @@
 @use "./variables";
 
-// définition des breakpoints pour le responsive
+// définition des breakpoints pour le responsive media query
 @mixin breakpoint($point) {
     @if $point == mobile {
         @media screen and (min-width: 375px) {
@@ -21,7 +21,7 @@
     }
 }
 
-// fond de la forme carte
+// style du background en forme de carte de couleur
 @mixin card_shape {
     width: 400px;
     padding: 10px;
@@ -30,12 +30,11 @@
     border-radius: 30px;
 }
 
-// input shape
+// élément de formulaire de type input
 @mixin input_shape {
     width: 100%;
     border: 0;
     border-radius: 16px;
-    // border: solid 1px black;
     line-height: 25px;
     padding: 5px 10px;
 }

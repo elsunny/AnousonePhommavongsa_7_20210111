@@ -6,17 +6,18 @@ import Post from "components/post/Post";
 import ShowMedia from "components/showMedia/ShowMedia";
 import "./Media.scss";
 
+
+// rendu principal de la page entière
 export default function Media() {
-
-
-
     return (
         <div className="pageContainer">
-            <Header />
-            <MainContainer>
-                <Post />
+            <ErrorBoundary>
+                <Header />
+                <MainContainer>
+                    <Post />
                     <ShowMedia />
-            </MainContainer>
+                </MainContainer>
+            </ErrorBoundary>
         </div>
     );
 }

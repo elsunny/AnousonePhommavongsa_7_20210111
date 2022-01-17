@@ -6,26 +6,35 @@ import { CommentsByMedia } from "components/comment/CommentsByMedia";
 import "./ShowMedia.scss";
 import MediaAddEvent from "events/MediaAdd";
 
+// affichage d'un post
 export default function ShowMedia() {
+    // informations rattachées à chaque post
     const [medias, setMedias] = useState(null);
 
+    // récupération des informations de l'utilisateur de session
     const user = JSON.parse(sessionStorage.getItem("user"));
 
-    // display all medias
     useEffect(() => {
         const baseUrl = "/api/media";
-        axios.get(baseUrl).then((res) => {
-            const medias = res.data;
-            const usersPromise = medias
+        axios
+            .get(baseUrl)
+            .then((res) => {
+                const medias = res.data; //récupère tous les médias et leurs informations
+                const usersPromise = medias
+                //ajout id de l'utilisateur lié au média s'il n'était pas dans le tableau
                 .reduce((userIds, media) => {
                     if (!userIds.includes(media.UserId))
-                        userIds.push(media.UserId);
+                        userIds.push(media.UserId); 
                     return userIds;
                 }, [])
+                //récupère toutes les infos des utilisateurs liés aux médias
                 .map((userId) => {
                     const url = "/api/user/" + userId;
-                    return axios.get(url).then((res) => res.data);
+                    return axios
+                                .get(url)
+                                .then((res) => res.data);
                 });
+
             Promise.all(usersPromise).then((users) => {
                 setMedias(
                     medias.map((media) => {
@@ -57,7 +66,7 @@ export default function ShowMedia() {
         };
     });
 
-    // remove the media
+    // Suppression d'un média
     const removeMedia = (mediaId) => {
         const mediaUrl = "/api/media/" + mediaId;
         axios.delete(mediaUrl).then((res) => {
@@ -82,13 +91,15 @@ export default function ShowMedia() {
                         </button>
                     )}
                 </div>
-                { (media.filename) && (<div className="showMedia_image">
-                    <img
-                        src={`http://localhost:4000/images/${media.filename}`}
-                        alt="média uploader ici"
-                    />
-                </div>) }
-                
+                {media.filename && (
+                    <div className="showMedia_image">
+                        <img
+                            src={`http://localhost:4000/images/${media.filename}`}
+                            alt="média uploader ici"
+                        />
+                    </div>
+                )}
+
                 <div className="showMedia_title">
                     <h3>{media.title}</h3>
                 </div>

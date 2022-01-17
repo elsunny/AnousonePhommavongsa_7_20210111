@@ -8,7 +8,6 @@ import { Deconnexion } from "pages/deconnexion/Deconnexion";
 import { Admin } from "pages/admin/Admin";
 import ErrorPage from "pages/error/ErrorPage";
 import { Suppression } from "pages/suppression/Suppression";
-
 import "./sass/app.scss";
 
 const App = () => {
@@ -24,8 +23,6 @@ const App = () => {
                 <Route path="admin" element={<Admin />} />
                 <Route path="*" element={<ErrorPage />} />
                 <Route path="profile/:id" element={<Profile />} />
-
-                
             </Routes>
         </Router>
     );

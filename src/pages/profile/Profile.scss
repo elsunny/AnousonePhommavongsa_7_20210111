@@ -1,6 +1,8 @@
 @use "../../sass/abstracts/mixins";
 @use "../../sass/abstracts/variables";
 
+
+// bloc principal de la page
 .profileContainer {
     @include mixins.breakpoint(mobile) {
         min-width: 375px;
@@ -17,9 +19,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // width: 768px;
 }
 
+// bloc contenant le profil de l'utilisateur
 .profileCard {
     @include mixins.card_shape;
     width: 100%;
@@ -31,24 +33,23 @@
         &_title {
             margin-top: 50px;
         }
-
     }
     &_button {
         button {
             cursor: pointer;
             border: 0;
-            background-color: rgba(0,0,0,0);
+            background-color: rgba(0, 0, 0, 0);
         }
     }
 }
 
+// element de forumulaire du profil modifiable
 #postCard_pseudo {
     padding: 10px;
     width: 200px;
     text-transform: capitalize;
     font-size: 20px;
     border-radius: initial;
-    
 }
 
 .profileCard_about_description {
@@ -58,6 +59,7 @@
     border: 0;
 }
 
+// bouton pour l'upload d'image du profil
 .custom-file-upload {
     width: 200px;
     display: inline-block;
@@ -66,6 +68,7 @@
     color: black;
 }
 
+// dimension de la photo d'avatar
 .avatar_photo {
     width: 200px;
     height: 200px;

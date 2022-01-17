@@ -1,5 +1,6 @@
 @use "../../sass/abstracts/mixins";
 
+// body-1 bloc principal du contenu
 .pageContainer {
     @include mixins.breakpoint(mobile) {
         min-width: 375px;

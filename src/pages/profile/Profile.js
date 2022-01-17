@@ -9,15 +9,17 @@ import axios from "axios";
 
 export default function Profile() {
     const { register, handleSubmit } = useForm();
-
-    const { id } = useParams(); //id du profil
-
-    const [user, setUser] = useState(null); //information sur l'utilisateur du profil
-
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"));
     const navigate = useNavigate();
 
-    // récupère les informations utilisateur du profil
+    //id du profil cliqué par le user de session
+    const { id } = useParams();
+
+    //information sur l'utilisateur du profil
+    const sessionUser = JSON.parse(sessionStorage.getItem("user"));
+
+    // récupère les informations sur l'utilisateur dont le profil a été cliqué
+    const [user, setUser] = useState(null);
+
     useEffect(() => {
         const url = "/api/user/" + id;
         axios
@@ -28,7 +30,7 @@ export default function Profile() {
 
     if (!user) return null;
 
-    // handle le image avatar upload
+    // gère la modification des informations et fichier d'upload du profil utilisateur
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append("file", data.image[0]);
@@ -45,7 +47,7 @@ export default function Profile() {
             .catch((err) => console.error(err));
     };
 
-    // remove user
+    // suppression d'un compte utilisateur
     const removeUser = (userId) => {
         const userUrl = "/api/user/" + userId;
         axios.delete(userUrl).then((res) => {
@@ -72,7 +74,7 @@ export default function Profile() {
                             {sessionUser.id === user.id && (
                                 <div className="postCard_control">
                                     <label
-                                        for="file-upload"
+                                        htmlFor="file-upload"
                                         className="custom-file-upload"
                                     >
                                         Changer de photo
@@ -105,6 +107,7 @@ export default function Profile() {
                                 <div className="profileCard_about_title">
                                     <h1>About</h1>
                                 </div>
+                                {/* seul l'utilisateur peut modifier son propre profil */}
                                 {user.id === sessionUser.id ? (
                                     <textarea
                                         {...register("description")}
@@ -115,7 +118,9 @@ export default function Profile() {
                                         defaultValue={user.description || ""}
                                     />
                                 ) : (
-                                    <div className="profileCard_about_description">{user.description}</div>
+                                    <div className="profileCard_about_description">
+                                        {user.description}
+                                    </div>
                                 )}
                             </div>
                             <div className="profileCard_button">
@@ -127,15 +132,16 @@ export default function Profile() {
                                         className="postCard_control_publier"
                                     />
                                 )}
-                                {(sessionUser.role === "admin" &&
-                                    sessionUser.id !== user.id) && 
+                                {/* Seul l'administrateur a un bouton pour supprimer un profil */}
+                                {sessionUser.role === "admin" &&
+                                    sessionUser.id !== user.id && (
                                         <button
                                             style={{ cursor: "pointer" }}
                                             onClick={(e) => removeUser(id)}
                                         >
                                             Supprimer
                                         </button>
-                                    }
+                                    )}
                             </div>
                         </form>
                     </div>

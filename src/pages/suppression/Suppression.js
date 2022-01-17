@@ -6,11 +6,11 @@ export const Suppression = () => {
 
     setTimeout(() => {
         navigate("/media");
-    }, 2000);
+    }, 1500);
 
     return (
         <div>
-            <h1>Le compte de l'utilisateur a bien été supprimé</h1>
+            <h1>Le compte de l'utilisateur a bien été supprimé.</h1>
         </div>
     );
 };

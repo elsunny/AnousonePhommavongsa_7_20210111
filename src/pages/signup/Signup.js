@@ -11,6 +11,7 @@ const Signup = () => {
 
     const navigate = useNavigate();
 
+    // sousmission du formulaire et sauvegarde des informations utilisateurs de session
     const manageSubmit = (data) => {
         axios.post("/api/user/signup", data)
             .then((res) => {

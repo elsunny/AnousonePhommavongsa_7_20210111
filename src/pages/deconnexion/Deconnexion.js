@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export const Deconnexion = () => {
     const navigate = useNavigate();
 
     setTimeout(() => {
         navigate("/login");
-    }, 2000);
+    }, 1500);
 
     return (
         <div>
