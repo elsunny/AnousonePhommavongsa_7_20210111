@@ -63,7 +63,7 @@ export default function Post() {
                     <p>{errors.mediaDescription?.message}</p>
                 </div>
                 <div className="postCard_control">
-                    <label for="file-upload" class="custom-file-upload">
+                    <label htmlFor="file-upload" className="custom-file-upload">
                          Ajouter photo
                     </label>
                     <input

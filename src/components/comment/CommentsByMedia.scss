@@ -1,3 +1,15 @@
 .mediaComment {
     display: flex;
 }
+
+.btnMoreLess {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 10px;
+    button {
+        border: 0;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: rgba(0,0,0,0);
+    }
+}

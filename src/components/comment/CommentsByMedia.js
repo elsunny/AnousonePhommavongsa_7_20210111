@@ -13,8 +13,6 @@ export const CommentsByMedia = (props) => {
     const [displayAll, setDisplayAll] = useState(false);
     const url = "http://localhost:4000/api/comment/" + mediaId;
 
-
-
     // affiche tout les commentaires liées à un média
     useEffect(() => {
         axios.get(url).then(
@@ -54,17 +52,32 @@ export const CommentsByMedia = (props) => {
         };
     });
 
-    
     if (!comments) return null;
-    const commentsToDisplay = displayAll ? comments : comments.slice(0,2);
-    
+
+
+    // affiche un nombre limité de commentaire
+    const commentsToDisplay = displayAll ? comments : comments.slice(0, 2);
+
+    // conditionne affichage plus ou moins de commentaires
+    const handleComment = () => {
+        (comments.length > commentsToDisplay.length) ? setDisplayAll(true) : setDisplayAll(false);
+    }
+
+
     const displayMediaComments = commentsToDisplay.map((comment) => {
         return <Comment comment={comment} key={"comment" + comment.id} />;
     });
 
+    
     return (
-        <div className="mediaComment">
-            <div>{displayMediaComments}</div>
+        <div>
+            <div className="mediaComment">
+                <div>{displayMediaComments}</div>
+            </div>
+            {
+                (comments.length > 2) &&  <div className="btnMoreLess"><button  onClick={handleComment}>+/-</button></div>
+            }
+            
         </div>
     );
 };
