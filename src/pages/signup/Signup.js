@@ -12,23 +12,25 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const manageSubmit = (data) => {
-        axios.post("http://localhost:4000/api/user/signup", data)
+        axios.post("/api/user/signup", data)
             .then((res) => {
                 sessionStorage.setItem("user", JSON.stringify(res.data))
                 navigate('/media');
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                alert('Oups un problème de connexion est survenu? Merci de vérifier votre email et votre mot de passe svp.');
+            });
     };
     return (
         <MainContainer>
             <Card>
-                <AuthTitle>Sign Up</AuthTitle>
+                <AuthTitle>Créer un compte</AuthTitle>
                 <Form sending={manageSubmit} displayPseudo={true} />
-                <Button>Sign Up </Button>
+                <Button>Créer </Button>
                 <div className="toggle_button">
-                    <span>Already have an account?</span>
+                    <span>Déjà un compte?</span>
                     <span>
-                        <Link to="/login">login</Link>
+                        <Link to="/login">Se connecter</Link>
                     </span>
                 </div>
             </Card>

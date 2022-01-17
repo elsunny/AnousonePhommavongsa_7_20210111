@@ -44,7 +44,12 @@ export default function ShowMedia() {
     // refresh page when a new media is added
     useEffect(() => {
         const callback = (event) => {
-            setMedias([event.detail, ...medias]);
+            const media = event.detail;
+            const url = "/api/user/" + media.UserId;
+            axios.get(url).then((res) => {
+                media.user = res.data;
+                setMedias([media, ...medias]);
+            });
         };
         document.addEventListener(MediaAddEvent.event, callback);
         return () => {
@@ -77,13 +82,13 @@ export default function ShowMedia() {
                         </button>
                     )}
                 </div>
-
-                <div className="showMedia_image">
+                { (media.filename) && (<div className="showMedia_image">
                     <img
                         src={`http://localhost:4000/images/${media.filename}`}
-                        alt="your media here"
+                        alt="média uploader ici"
                     />
-                </div>
+                </div>) }
+                
                 <div className="showMedia_title">
                     <h3>{media.title}</h3>
                 </div>

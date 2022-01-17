@@ -32,7 +32,7 @@ function Form(props) {
                         id="pseudo"
                         name="pseudo"
                     />
-                    <p>{errors.pseudo?.message}</p>
+                    {errors.pseudo && <p>{errors.pseudo.message}</p>}
                 </div>
             }
             <div>
@@ -45,26 +45,27 @@ function Form(props) {
                     id="email"
                     name="email"
                 />
-                <p>{errors.email?.message}</p>
+                {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Mot de passe</label>
                 <input
                     {...register("password", {
                         required: "Merci de compléter ce champ svp",
                         minLength: {
                             value: 6,
-                            message: "longueur minimal de 6 caractères",
+                            message: "8 caractères minimum avec au moins 1 minuscule, 1 majuscule et 1 nombre",
                         },
                     })}
                     type="password"
                     id="password"
                     name="password"
                 />
-                <p>{errors.pwd?.message}</p>
+                {errors.password && <p>{errors.password.message}</p>}
             </div>
         </form>
     );
 }
 
 export default Form;
+

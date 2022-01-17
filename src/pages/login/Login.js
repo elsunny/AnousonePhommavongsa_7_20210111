@@ -13,24 +13,27 @@ const Login = () => {
     
 
     const manageSubmit = (data) => {
-        axios.post('http://localhost:4000/api/user/login', data)
+        axios.post('/api/user/login', data)
         .then((res) => {
             sessionStorage.setItem("user", JSON.stringify(res.data));
             navigate('/media');
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            console.error(err);
+            alert('Oups un problème de connexion est survenu? Merci de vérifier votre email et votre mot de passe svp.');
+        });
     }
         return (
             
             <MainContainer>
                 <Card>
-                    <AuthTitle>Login</AuthTitle>
+                    <AuthTitle>Se connecter</AuthTitle>
                     <Form sending={manageSubmit} displayPseudo={false}/>
-                    <Button>Login </Button>
+                    <Button>Connexion </Button>
                     <div className="toggle_button">
-                        <span>Already have an account?</span>
+                        <span>Pas encore de compte?</span>
                         <span>
-                            <Link to="/signup">Sign Up</Link>
+                            <Link to="/signup">Créer un compte</Link>
                         </span>
                     </div>
                 </Card>

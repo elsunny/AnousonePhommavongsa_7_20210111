@@ -6,7 +6,6 @@ import CommentAddEvent from "events/CommentAdd";
 import CommentDeleteEvent from "events/CommentDelete";
 
 export const CommentsByMedia = (props) => {
-    const [error, setError] = useState(null);
     const [comments, setComments] = useState(null);
     const hasFetchedData = useRef(false);
     const mediaId = props.mediaNumber;
@@ -20,7 +19,6 @@ export const CommentsByMedia = (props) => {
                 setComments(res.data);
                 hasFetchedData.current = true;
             },
-            (error) => setError(error)
         );
     }, [url]);
 

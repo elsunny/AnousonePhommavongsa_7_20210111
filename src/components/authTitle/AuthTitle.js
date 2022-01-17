@@ -5,7 +5,7 @@ const AuthTitle = (props) => {
     return (
         <div className="title">
             <h1>{props.children}</h1>
-            <span>Enter your credentials to continue</span>
+            <span>Entrer vos identifiants pour continuer</span>
         </div>
     );
 };

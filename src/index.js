@@ -6,8 +6,9 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:4000";
 axios
-    .get("http://localhost:4000/api/user/me")
+    .get("/api/user/me")
     .then((res) => sessionStorage.setItem("user", JSON.stringify(res.data)))
+    .catch(e => sessionStorage.removeItem('user'))
     .finally(() => {
         ReactDOM.render(
             <React.StrictMode>

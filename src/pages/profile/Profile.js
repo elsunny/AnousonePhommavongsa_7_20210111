@@ -127,7 +127,7 @@ export default function Profile() {
                                         className="postCard_control_publier"
                                     />
                                 )}
-                                {(sessionUser.role === "admin" &
+                                {(sessionUser.role === "admin" &&
                                     sessionUser.id !== user.id) && 
                                         <button
                                             style={{ cursor: "pointer" }}
