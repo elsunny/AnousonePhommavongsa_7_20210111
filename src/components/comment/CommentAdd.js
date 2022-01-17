@@ -1,5 +1,3 @@
-
-import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Avatar from "components/avatar/Avatar";
 import axios from "axios";
@@ -16,7 +14,7 @@ export const CommentAdd = (props) => {
     const { register, handleSubmit, reset } = useForm();
 
     const mediaId = props.mediaNumber;
-    const url = "http://localhost:4000/api/comment/" + mediaId;
+    const url = "/api/comment/" + mediaId;
 
     const onSubmit = (data) => {
         axios

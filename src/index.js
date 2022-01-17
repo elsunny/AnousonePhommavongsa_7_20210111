@@ -4,7 +4,7 @@ import App from "./App";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = process.env.REACT_APP_HOST;
 axios
     .get("/api/user/me")
     .then((res) => sessionStorage.setItem("user", JSON.stringify(res.data)))

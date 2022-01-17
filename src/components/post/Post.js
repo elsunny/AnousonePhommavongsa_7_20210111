@@ -21,7 +21,7 @@ export default function Post() {
         formData.append("description", data.description);
         formData.append("file", data.filename[0]);
 
-        const url = "http://localhost:4000/api/media/";
+        const url = "/api/media/";
 
         axios
             .post(url, formData)

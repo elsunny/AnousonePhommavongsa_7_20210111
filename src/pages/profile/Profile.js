@@ -19,7 +19,7 @@ export default function Profile() {
 
     // récupère les informations utilisateur du profil
     useEffect(() => {
-        const url = "http://localhost:4000/api/user/" + id;
+        const url = "/api/user/" + id;
         axios
             .get(url)
             .then((res) => setUser(res.data))
@@ -35,7 +35,7 @@ export default function Profile() {
         formData.append("pseudo", data.pseudo);
         formData.append("description", data.description);
 
-        const url = "http://localhost:4000/api/user/profile/" + id;
+        const url = "/api/user/profile/" + id;
 
         axios
             .put(url, formData)
@@ -47,7 +47,7 @@ export default function Profile() {
 
     // remove user
     const removeUser = (userId) => {
-        const userUrl = "http://localhost:4000/api/user/" + userId;
+        const userUrl = "/api/user/" + userId;
         axios.delete(userUrl).then((res) => {
             navigate("/suppression");
         });

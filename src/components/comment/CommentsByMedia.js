@@ -10,7 +10,7 @@ export const CommentsByMedia = (props) => {
     const hasFetchedData = useRef(false);
     const mediaId = props.mediaNumber;
     const [displayAll, setDisplayAll] = useState(false);
-    const url = "http://localhost:4000/api/comment/" + mediaId;
+    const url = "/api/comment/" + mediaId;
 
     // affiche tout les commentaires liées à un média
     useEffect(() => {

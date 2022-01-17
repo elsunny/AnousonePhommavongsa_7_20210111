@@ -13,7 +13,7 @@ export default function ShowMedia() {
 
     // display all medias
     useEffect(() => {
-        const baseUrl = "http://localhost:4000/api/media";
+        const baseUrl = "/api/media";
         axios.get(baseUrl).then((res) => {
             const medias = res.data;
             const usersPromise = medias
@@ -23,7 +23,7 @@ export default function ShowMedia() {
                     return userIds;
                 }, [])
                 .map((userId) => {
-                    const url = "http://localhost:4000/api/user/" + userId;
+                    const url = "/api/user/" + userId;
                     return axios.get(url).then((res) => res.data);
                 });
             Promise.all(usersPromise).then((users) => {
@@ -59,7 +59,7 @@ export default function ShowMedia() {
 
     // remove the media
     const removeMedia = (mediaId) => {
-        const mediaUrl = "http://localhost:4000/api/media/" + mediaId;
+        const mediaUrl = "/api/media/" + mediaId;
         axios.delete(mediaUrl).then((res) => {
             setMedias(medias.filter((media) => media.id !== mediaId));
         });

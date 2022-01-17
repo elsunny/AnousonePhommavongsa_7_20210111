@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export const Admin = () => {
 
-    const baseUrl = "http://localhost:4000/api/user";
+    const baseUrl = "/api/user";
 
     const [user, setUser] = useState([]);
 

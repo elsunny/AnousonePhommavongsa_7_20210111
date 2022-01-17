@@ -13,7 +13,7 @@ export const Comment = (props) => {
     const me = JSON.parse(sessionStorage.getItem("user"));
 
     useEffect(() => {
-        const url = "http://localhost:4000/api/user/" + comment.UserId;
+        const url = "/api/user/" + comment.UserId;
         axios
             .get(url)
             .then((res) => setCommentUser(res.data))
@@ -22,7 +22,7 @@ export const Comment = (props) => {
 
      // supprime les commentaires
      const removeComment = (comment) => {
-        const commentUrl = "http://localhost:4000/api/comment/" + comment.id;
+        const commentUrl = "/api/comment/" + comment.id;
         axios.delete(commentUrl).then((res) => {
             document.dispatchEvent(new CommentDeleteEvent(comment));
         });

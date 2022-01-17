@@ -15,7 +15,7 @@ export default function Header(props) {
 
     const handleClick = () => {
         axios
-            .post("http://localhost:4000/api/user/logout")
+            .post("/api/user/logout")
             .then((res) => {
                 sessionStorage.removeItem("user");
                 navigate("/deconnexion");
@@ -28,7 +28,7 @@ export default function Header(props) {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/user/me")
+        axios.get("/api/user/me")
             .then(res => setUser(res.data));
     }, [])
 
