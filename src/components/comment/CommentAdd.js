@@ -39,7 +39,6 @@ export const CommentAdd = (props) => {
                     {...register("userComment")}
                     type="text"
                     id="userComment"
-                    className="comment-add-form-text"
                     name="userComment"
                 />
                 <input className="comment-add-form-submit" type="submit" />

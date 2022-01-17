@@ -8,7 +8,7 @@
         @include mixins.card_shape;
         min-width: 768px;
     }
-    @include mixins.breakpoint(desktop) {
+    @include mixins.breakpoint(laptop) {
         min-width: 1024px;
     }
     margin: 10px 0;

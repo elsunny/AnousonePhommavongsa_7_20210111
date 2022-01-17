@@ -13,16 +13,13 @@
     }
 }
 
-.comment-add-form {
-    &-text {
-        @include mixins.input_shape;
-        flex-grow: 2; 
-    }
-    &-submit {
-        @include mixins.input_shape;
-        width: 100px;
-        background-color: rgba(0, 0, 0, 0);
-
-    }
+.comment-add-form-submit {
+    @include mixins.input_shape;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
+#userComment {
+    @include mixins.input_shape;
+    flex-grow: 2;
+}
