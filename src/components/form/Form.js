@@ -33,6 +33,7 @@ function Form(props) {
                         type="text"
                         id="pseudo"
                         name="pseudo"
+                        pattern="[A-Za-z]{4,12}"
                     />
                     {errors.pseudo && <p>{errors.pseudo.message}</p>}
                 </div>
@@ -46,6 +47,7 @@ function Form(props) {
                     type="email"
                     id="email"
                     name="email"
+                    pattern="[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"
                 />
                 {errors.email && <p>{errors.email.message}</p>}
             </div>
@@ -63,6 +65,8 @@ function Form(props) {
                     type="password"
                     id="password"
                     name="password"
+                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$"
+                    title="le mot de passe doit contenir entre 8 et 16 lettres mini, au moins 1 minuscule, 1 majuscule et 1 chiffre"
                 />
                 {errors.password && <p>{errors.password.message}</p>}
             </div>
@@ -71,3 +75,10 @@ function Form(props) {
 }
 
 export default Form;
+
+
+// password must contain 1 number (0-9)
+// password must contain 1 uppercase letters
+// password must contain 1 lowercase letters
+// password must contain 1 non-alpha numeric number
+// password is 8-16 characters with no space
