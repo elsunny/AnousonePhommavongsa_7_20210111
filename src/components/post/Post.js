@@ -6,8 +6,11 @@ import "./Post.scss";
 import MediaAddEvent from "events/MediaAdd";
 
 export default function Post() {
+
+    // récupération des informations sur l'utilisateur de session
     const user = JSON.parse(sessionStorage.getItem("user"));
 
+    // récupération des données du formulaire et mise au bon format
     const {
         register,
         handleSubmit,

@@ -1,18 +1,17 @@
-@use  "../../sass/abstracts/mixins";
+@use "../../sass/abstracts/mixins";
 
 .MainContainer {
-        @include mixins.breakpoint(mobile) {
-                min-width: 355px;
-            }
-            @include mixins.breakpoint(tablet) {
-                width: 600px;
-        
-            }
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin-top: 50px;
-        padding: 10px;
+    @include mixins.breakpoint(mobile) {
+        min-width: 355px;
+    }
+    @include mixins.breakpoint(tablet) {
+        width: 600px;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 50px;
+    padding: 10px;
 }

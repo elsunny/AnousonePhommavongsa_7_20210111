@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Comment } from "./Comment";
 import "./CommentsByMedia.scss";
@@ -7,19 +7,15 @@ import CommentDeleteEvent from "events/CommentDelete";
 
 export const CommentsByMedia = (props) => {
     const [comments, setComments] = useState(null);
-    const hasFetchedData = useRef(false);
     const mediaId = props.mediaNumber;
     const [displayAll, setDisplayAll] = useState(false);
     const url = "/api/comment/" + mediaId;
 
     // affiche tout les commentaires liées à un média
     useEffect(() => {
-        axios.get(url).then(
-            (res) => {
-                setComments(res.data);
-                hasFetchedData.current = true;
-            },
-        );
+        axios.get(url).then((res) => {
+            setComments(res.data);
+        });
     }, [url]);
 
     // refresh page when a new comment is added
@@ -52,30 +48,30 @@ export const CommentsByMedia = (props) => {
 
     if (!comments) return null;
 
-
     // affiche un nombre limité de commentaire
     const commentsToDisplay = displayAll ? comments : comments.slice(0, 2);
 
     // conditionne affichage plus ou moins de commentaires
     const handleComment = () => {
-        (comments.length > commentsToDisplay.length) ? setDisplayAll(true) : setDisplayAll(false);
-    }
-
+        comments.length > commentsToDisplay.length
+            ? setDisplayAll(true)
+            : setDisplayAll(false);
+    };
 
     const displayMediaComments = commentsToDisplay.map((comment) => {
         return <Comment comment={comment} key={"comment" + comment.id} />;
     });
 
-    
     return (
         <div>
             <div className="mediaComment">
                 <div>{displayMediaComments}</div>
             </div>
-            {
-                (comments.length > 2) &&  <div className="btnMoreLess"><button  onClick={handleComment}>+/-</button></div>
-            }
-            
+            {comments.length > 2 && (
+                <div className="btnMoreLess">
+                    <button onClick={handleComment}>+/-</button>
+                </div>
+            )}
         </div>
     );
 };

@@ -7,9 +7,9 @@ import './Comment.scss';
 export const Comment = (props) => {
 
     const { comment } = props;
-
     const [commentUser, setCommentUser] = useState(null);
 
+    // récupération des données de l'utilisateur de sesssion
     const me = JSON.parse(sessionStorage.getItem("user"));
 
     useEffect(() => {

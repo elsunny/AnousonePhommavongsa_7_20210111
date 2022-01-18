@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import "./Form.scss";
 
+
+// mise en place du formulaire pour le login et le signup
 function Form(props) {
     const {
         register,
@@ -17,7 +19,7 @@ function Form(props) {
             id="user_form"
             method="post"
         >
-            {props.displayPseudo && 
+            {props.displayPseudo && (
                 <div>
                     <label htmlFor="pseudo">Pseudo</label>
                     <input
@@ -34,7 +36,7 @@ function Form(props) {
                     />
                     {errors.pseudo && <p>{errors.pseudo.message}</p>}
                 </div>
-            }
+            )}
             <div>
                 <label htmlFor="email">Email</label>
                 <input
@@ -54,7 +56,8 @@ function Form(props) {
                         required: "Merci de compléter ce champ svp",
                         minLength: {
                             value: 6,
-                            message: "8 caractères minimum avec au moins 1 minuscule, 1 majuscule et 1 nombre",
+                            message:
+                                "8 caractères minimum avec au moins 1 minuscule, 1 majuscule et 1 nombre",
                         },
                     })}
                     type="password"
@@ -68,4 +71,3 @@ function Form(props) {
 }
 
 export default Form;
-

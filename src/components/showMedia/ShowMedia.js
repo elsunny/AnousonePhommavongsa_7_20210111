@@ -14,30 +14,27 @@ export default function ShowMedia() {
     // récupération des informations de l'utilisateur de session
     const user = JSON.parse(sessionStorage.getItem("user"));
 
+    // récupération des informations des utilisateurs qui ont créé les médias
     useEffect(() => {
         const baseUrl = "/api/media";
-        axios
-            .get(baseUrl)
-            .then((res) => {
-                const medias = res.data; //récupère tous les médias et leurs informations
-                const usersPromise = medias
-                //ajout id de l'utilisateur lié au média s'il n'était pas dans le tableau
+        axios.get(baseUrl).then((res) => {
+            const newMedias = res.data; //récupère tous les médias et leurs informations
+            const usersPromise = newMedias
+                //créer un tab d'utilisateurs unique en fonction du média qu'ils ont créé
                 .reduce((userIds, media) => {
                     if (!userIds.includes(media.UserId))
-                        userIds.push(media.UserId); 
+                        userIds.push(media.UserId);
                     return userIds;
                 }, [])
                 //récupère toutes les infos des utilisateurs liés aux médias
                 .map((userId) => {
                     const url = "/api/user/" + userId;
-                    return axios
-                                .get(url)
-                                .then((res) => res.data);
+                    return axios.get(url).then((res) => res.data);
                 });
-
+            // on insère dans le tableaud des médias les informations de l'utilisateur
             Promise.all(usersPromise).then((users) => {
                 setMedias(
-                    medias.map((media) => {
+                    newMedias.map((media) => {
                         return {
                             ...media,
                             user: users.find((user) => {
@@ -50,7 +47,7 @@ export default function ShowMedia() {
         });
     }, []);
 
-    // refresh page when a new media is added
+    // mis à jour des médias en cas d'ajout d'un post
     useEffect(() => {
         const callback = (event) => {
             const media = event.detail;
@@ -76,11 +73,20 @@ export default function ShowMedia() {
 
     if (!medias) return null;
 
+
+
+    // rendu
+
     const getMediaToDisplay = medias.map((media) => {
         return (
             <div className="showMedia" key={"media" + media.id}>
                 <div className="showMedia_header">
-                    <Avatar user={media.user} />
+                    <div className="avatarInfo">
+                        <Avatar user={media.user} />
+                        <div className="avatarInfo-pseudo">
+                            {media.user.pseudo}
+                        </div>
+                    </div>
                     {(user.role === "admin" || user.role === "moderator") && (
                         <button
                             className="showMedia_header-supprimer"

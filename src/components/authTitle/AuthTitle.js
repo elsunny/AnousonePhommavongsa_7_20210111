@@ -1,6 +1,6 @@
 import React from "react";
 
-
+// titre de la carte login ou signup
 const AuthTitle = (props) => {
     return (
         <div className="title">

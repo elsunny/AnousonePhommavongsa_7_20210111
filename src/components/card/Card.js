@@ -2,7 +2,7 @@ import React from "react";
 import "./Card.scss";
 import Logo from "components/logo/Logo";
 
-
+// affichage de la forme de fond pour le login et signup
 const Card = (props) => {
 
         return (
